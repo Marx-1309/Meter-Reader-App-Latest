@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             x:Class="SampleMauiMvvmApp.Views.SecurityPages.LoginPage"
+             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             x:DataType="viewmodel:LoginViewModel"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <!-- Full-page deep-ocean background — no blinding white -->
+    <Grid>
+        <!-- Background gradient layer -->
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0.6,1">
+                    <GradientStop Color="#030E18" Offset="0.0" />
+                    <GradientStop Color="#061929" Offset="0.30" />
+                    <GradientStop Color="#0A2342" Offset="0.60" />
+                    <GradientStop Color="#0E4C7A" Offset="1.0"  />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Decorative ripple circles -->
+        <Ellipse Fill="#0E2AABEE" WidthRequest="380" HeightRequest="380"
+                 HorizontalOptions="End" VerticalOptions="Start"
+                 Margin="0,-120,-100,0" />
+        <Ellipse Fill="#0A2DD4BF" WidthRequest="260" HeightRequest="260"
+                 HorizontalOptions="Start" VerticalOptions="End"
+                 Margin="-80,0,0,-80" />
+        <Ellipse Fill="#062AABEE" WidthRequest="180" HeightRequest="180"
+                 HorizontalOptions="Center" VerticalOptions="Start"
+                 Margin="80,40,0,0" />
+
+        <!-- Content -->
+        <Grid RowDefinitions="*,Auto">
+
+            <!-- ── Hero: logo + tagline ── -->
+            <VerticalStackLayout Grid.Row="0"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Spacing="14" Padding="24,0">
+
+                <!-- Water-drop icon badge -->
+                <Border BackgroundColor="#1A2AABEE"
+                        StrokeShape="RoundRectangle 36"
+                        Stroke="#332AABEE"
+                        StrokeThickness="2"
+                        HeightRequest="110" WidthRequest="110"
+                        HorizontalOptions="Center">
+                    <Grid>
+                        <!-- Lottie animation inside the badge -->
+                        <skia:SKLottieView Source="add_profile.json"
+                                           RepeatCount="-1"
+                                           HeightRequest="70" WidthRequest="70"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="Meter Reader"
+                           FontSize="28" FontFamily="OpenSansSemibold"
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                    <!--<Label Text="Omaruru Town Council"
+                           FontSize="13"
+                           TextColor="#99B3E8F5"
+                           HorizontalOptions="Center" />-->
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- ── Frosted form card ── -->
+            <VerticalStackLayout x:Name="formPanel"
+                                 Grid.Row="1"
+                                 Opacity="0" TranslationY="30">
+
+                <!-- Frosted card -->
+                <Border BackgroundColor="#F2FFFFFF"
+                        StrokeShape="RoundRectangle 32,32,0,0"
+                        StrokeThickness="0"
+                        Padding="26,28,26,40">
+                    <VerticalStackLayout Spacing="0">
+
+                        <Label Text="Welcome back"
+                               FontSize="20" FontFamily="OpenSansSemibold"
+                               TextColor="#0A2342"
+                               HorizontalOptions="Start"
+                               Margin="0,0,0,2" />
+                        <Label Text="Sign in to your account"
+                               FontSize="13"
+                               TextColor="#5A7A94"
+                               Margin="0,0,0,24" />
+
+                        <!-- Username -->
+                        <Label Text="USERNAME"
+                               FontSize="11" FontFamily="OpenSansSemibold"
+                               CharacterSpacing="1.2" TextColor="#3E6080"
+                               Margin="0,0,0,6" />
+                        <Frame HasShadow="False" CornerRadius="14" Padding="14,0"
+                               HeightRequest="52" Margin="0,0,0,16"
+                               BackgroundColor="White"
+                               BorderColor="#C8DFF0">
+                            <Entry Placeholder="Enter your username"
+                                   Text="{Binding Username}"
+                                   Keyboard="Email"
+                                   ReturnType="Next"
+                                   TextColor="#0A1523"
+                                   PlaceholderColor="#9BB8CC" />
+                        </Frame>
+
+                        <!-- Password -->
+                        <Label Text="PASSWORD"
+                               FontSize="11" FontFamily="OpenSansSemibold"
+                               CharacterSpacing="1.2" TextColor="#3E6080"
+                               Margin="0,0,0,6" />
+                        <Frame HasShadow="False" CornerRadius="14" Padding="14,0"
+                               HeightRequest="52" Margin="0,0,0,26"
+                               BackgroundColor="White"
+                               BorderColor="#C8DFF0">
+                            <Entry Placeholder="Enter your password"
+                                   Text="{Binding Password}"
+                                   IsPassword="True"
+                                   ReturnType="Go"
+                                   ReturnCommand="{Binding LoginCommand}"
+                                   TextColor="#0A1523"
+                                   PlaceholderColor="#9BB8CC" />
+                        </Frame>
+
+                        <!-- Sign In button -->
+                        <Button Text="Sign In"
+                                Command="{Binding LoginCommand}"
+                                BackgroundColor="#2AABEE"
+                                TextColor="White"
+                                FontFamily="OpenSansSemibold"
+                                FontSize="16"
+                                CornerRadius="14"
+                                HeightRequest="54"
+                                CharacterSpacing="0.4" />
+
+                        <!-- Busy indicator -->
+                        <ActivityIndicator HorizontalOptions="Center"
+                                           IsRunning="{Binding IsBusy}"
+                                           IsVisible="{Binding IsBusy}"
+                                           Color="#2AABEE"
+                                           Margin="0,14,0,0" />
+
+                        <!-- Theme toggle row -->
+                        <HorizontalStackLayout HorizontalOptions="Center"
+                                               Spacing="10" Margin="0,22,0,0">
+                            <Label Text="Dark mode"
+                                   FontSize="13" TextColor="#5A7A94"
+                                   VerticalOptions="Center" />
+                            <Switch x:Name="themeSwitch"
+                                    Toggled="OnThemeToggled"
+                                    VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <!-- Footer -->
+                        <Label Text="Kinetic Wizard  ·  v1.0"
+                               FontSize="11" TextColor="#9BB8CC"
+                               HorizontalOptions="Center"
+                               Margin="0,14,0,0" />
+
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+        </Grid>
+    </Grid>
+</ContentPage>

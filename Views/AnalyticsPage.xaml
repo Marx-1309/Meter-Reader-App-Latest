@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             x:DataType="vm:AnalyticsViewModel"
+             x:Class="SampleMauiMvvmApp.Views.AnalyticsPage"
+             Title="Analytics"
+             BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean900}}">
+
+    <RefreshView Command="{Binding LoadAnalyticsCommand}" IsRefreshing="{Binding IsBusy}">
+        <ScrollView>
+            <VerticalStackLayout x:Name="dashPanel" Spacing="0" Padding="0,0,0,40"
+                                 Opacity="0" TranslationY="20">
+
+                <!-- ══════════ HEADER ══════════ -->
+                <Grid Padding="20,20,20,26">
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#1A3A5C" Offset="0.0" />
+                            <GradientStop Color="#1A7DB5" Offset="0.6" />
+                            <GradientStop Color="#2AABEE" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Ellipse Fill="#1A009FDD" WidthRequest="200" HeightRequest="200"
+                             HorizontalOptions="End" VerticalOptions="Start" Margin="0,-70,-50,0" />
+                    <Ellipse Fill="#0A2DD4BF" WidthRequest="130" HeightRequest="130"
+                             HorizontalOptions="End" VerticalOptions="End" Margin="0,0,40,-50" />
+                    <VerticalStackLayout Spacing="3">
+                        <Label Text="{Binding Greeting}"
+                               FontSize="22" FontFamily="OpenSansSemibold" TextColor="White" />
+                        <Label Text="{Binding TodayDate}" FontSize="12" TextColor="#BBCFE9F8" />
+                        <Label Text="Reading Dashboard" FontSize="13"
+                               TextColor="#88CFE9F8" Margin="0,6,0,0" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Wave cutout -->
+                <BoxView HeightRequest="24" CornerRadius="22,22,0,0" Margin="0,-14,0,0"
+                         BackgroundColor="{AppThemeBinding Light={StaticResource PageBg}, Dark={StaticResource Ocean900}}" />
+
+                <!-- ══════════ KPI 2×2+1 GRID ══════════ -->
+                <Grid Padding="14,0" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto"
+                      ColumnSpacing="10" RowSpacing="10">
+
+                    <Frame Grid.Row="0" Grid.Column="0" Padding="14" CornerRadius="16" HasShadow="False"
+                           BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                           BorderColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="TOTAL" Style="{StaticResource OverlineLabel}" />
+                            <Label Text="{Binding TotalReadings}" FontSize="36" FontFamily="OpenSansSemibold"
+                                   TextColor="{AppThemeBinding Light={StaticResource Ocean500}, Dark={StaticResource Water300}}" />
+                            <Label Text="readings this export" Style="{StaticResource TinyLabel}" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="0" Grid.Column="1" Padding="14" CornerRadius="16" HasShadow="False"
+                           BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                           BorderColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="CAPTURED" Style="{StaticResource OverlineLabel}" />
+                            <Label Text="{Binding CapturedCount}" FontSize="36" FontFamily="OpenSansSemibold"
+                                   TextColor="{AppThemeBinding Light={StaticResource Success500}, Dark={StaticResource Teal300}}" />
+                            <Label Text="{Binding CaptureRateText, StringFormat='Rate: {0}'}"
+                                   Style="{StaticResource TinyLabel}" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="1" Grid.Column="0" Padding="14" CornerRadius="16" HasShadow="False"
+                           BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                           BorderColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="PENDING" Style="{StaticResource OverlineLabel}" />
+                            <Label Text="{Binding UncapturedCount}" FontSize="36" FontFamily="OpenSansSemibold"
+                                   TextColor="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}" />
+                            <Label Text="still uncaptured" Style="{StaticResource TinyLabel}" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="1" Grid.Column="1" Padding="14" CornerRadius="16" HasShadow="False"
+                           BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                           BorderColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="ABNORMAL" Style="{StaticResource OverlineLabel}" />
+                            <Label Text="{Binding AbnormalCount}" FontSize="36" FontFamily="OpenSansSemibold"
+                                   TextColor="{AppThemeBinding Light={StaticResource Warning500}, Dark={StaticResource Warning500}}" />
+                            <Label Text="usage ≥ 20 kL above prev" Style="{StaticResource TinyLabel}" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Row 2: My Readings + Synced -->
+                    <Frame Grid.Row="2" Grid.Column="0" Padding="14" CornerRadius="16" HasShadow="False"
+                           BackgroundColor="{AppThemeBinding Light={StaticResource TeleBlueLight}, Dark={StaticResource Ocean800}}"
+                           BorderColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Ocean600}}">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="MY READINGS" Style="{StaticResource OverlineLabel}"
+                                   TextColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+                            <Label Text="{Binding MyReadingsCount}" FontSize="36" FontFamily="OpenSansSemibold"
+                                   TextColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+                            <Label Text="{Binding MyReadingsLabel}" Style="{StaticResource TinyLabel}" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Row="2" Grid.Column="1" Padding="14" CornerRadius="16" HasShadow="False"
+                           BackgroundColor="{AppThemeBinding Light={StaticResource Teal100}, Dark={StaticResource Ocean800}}"
+                           BorderColor="{AppThemeBinding Light={StaticResource Teal400}, Dark={StaticResource Ocean600}}">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="SYNCED" Style="{StaticResource OverlineLabel}"
+                                   TextColor="{AppThemeBinding Light={StaticResource Teal500}, Dark={StaticResource Teal300}}" />
+                            <Label Text="{Binding SyncedCount}" FontSize="36" FontFamily="OpenSansSemibold"
+                                   TextColor="{AppThemeBinding Light={StaticResource Teal500}, Dark={StaticResource Teal300}}" />
+                            <Label Text="{Binding SyncRateText, StringFormat='Rate: {0}'}" Style="{StaticResource TinyLabel}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <!-- ══════════ PROGRESS OVERVIEW ══════════ -->
+                <VerticalStackLayout Padding="14,14,14,0" Spacing="0">
+
+                    <Label Text="CAPTURE OVERVIEW" Style="{StaticResource SectionLabel}" />
+
+                    <Frame Padding="16" CornerRadius="16" HasShadow="False" Margin="0,0,0,10"
+                           BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                           BorderColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}">
+                        <VerticalStackLayout Spacing="14">
+
+                            <!-- Capture bar -->
+                            <VerticalStackLayout Spacing="6">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Text="Capture Rate" FontSize="14" FontFamily="OpenSansSemibold"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water50}}" />
+                                    <Label Grid.Column="1" Text="{Binding CaptureRateText}"
+                                           FontSize="18" FontFamily="OpenSansSemibold"
+                                           TextColor="{AppThemeBinding Light={StaticResource Ocean500}, Dark={StaticResource Water300}}" />
+                                </Grid>
+                                <!-- Track -->
+                                <Grid>
+                                    <Border HeightRequest="10" StrokeShape="RoundRectangle 5" StrokeThickness="0"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}" />
+                                    <!-- Animated fill — width set from code-behind -->
+                                    <Border x:Name="captureBar"
+                                            HeightRequest="10" WidthRequest="4"
+                                            HorizontalOptions="Start"
+                                            StrokeShape="RoundRectangle 5" StrokeThickness="0">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="#0069B4" Offset="0" />
+                                                <GradientStop Color="#009FDD" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                </Grid>
+                                <Label FontSize="12"
+                                       TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource N400}}">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0} captured  ·  {1} pending  ·  {2} zero">
+                                            <Binding Path="CapturedCount" />
+                                            <Binding Path="UncapturedCount" />
+                                            <Binding Path="ZeroCount" />
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </VerticalStackLayout>
+
+                            <BoxView Style="{StaticResource WaterDivider}" />
+
+                            <!-- Sync bar -->
+                            <VerticalStackLayout Spacing="6">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Text="Sync Rate" FontSize="14" FontFamily="OpenSansSemibold"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water50}}" />
+                                    <Label Grid.Column="1" Text="{Binding SyncRateText}"
+                                           FontSize="18" FontFamily="OpenSansSemibold"
+                                           TextColor="{AppThemeBinding Light={StaticResource Teal500}, Dark={StaticResource Teal300}}" />
+                                </Grid>
+                                <Grid>
+                                    <Border HeightRequest="10" StrokeShape="RoundRectangle 5" StrokeThickness="0"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}" />
+                                    <Border x:Name="syncBar"
+                                            HeightRequest="10" WidthRequest="4"
+                                            HorizontalOptions="Start"
+                                            StrokeShape="RoundRectangle 5" StrokeThickness="0">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="#007A6E" Offset="0" />
+                                                <GradientStop Color="#2DD4BF" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                </Grid>
+                                <Label FontSize="12"
+                                       TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource N400}}">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0} synced  ·  {1} awaiting sync">
+                                            <Binding Path="SyncedCount" />
+                                            <Binding Path="UnsyncedCount" />
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- ══════════ AREA BREAKDOWN ══════════ -->
+                    <Label Text="CAPTURE BY AREA" Style="{StaticResource SectionLabel}" />
+
+                    <CollectionView ItemsSource="{Binding AreaStats}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:AreaStat">
+                                <Frame Margin="0,4" Padding="14" CornerRadius="16" HasShadow="False"
+                                       BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                                       BorderColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}">
+                                    <VerticalStackLayout Spacing="8">
+                                        <!-- Area name + pct -->
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label Text="{Binding AreaName}"
+                                                   FontSize="14" FontFamily="OpenSansSemibold" LineBreakMode="TailTruncation"
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water50}}" />
+                                            <Label Grid.Column="1" Text="{Binding PctText}"
+                                                   FontSize="13" FontFamily="OpenSansSemibold"
+                                                   TextColor="{Binding BarColor}" />
+                                        </Grid>
+
+                                        <!-- Progress bar track + fill using ScaleX -->
+                                        <Grid>
+                                            <!-- Track -->
+                                            <Border HeightRequest="8" StrokeShape="RoundRectangle 4" StrokeThickness="0"
+                                                    BackgroundColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}" />
+                                            <!-- Fill: AnchorX=0 so ScaleX grows from left -->
+                                            <Border HeightRequest="8" StrokeShape="RoundRectangle 4" StrokeThickness="0"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    AnchorX="0"
+                                                    ScaleX="{Binding PctRatio}"
+                                                    BackgroundColor="{Binding BarColor}" />
+                                        </Grid>
+
+                                        <!-- Captured / pending labels -->
+                                        <HorizontalStackLayout Spacing="20">
+                                            <HorizontalStackLayout Spacing="5">
+                                                <BoxView WidthRequest="8" HeightRequest="8" CornerRadius="4"
+                                                         Color="{AppThemeBinding Light={StaticResource Success500}, Dark={StaticResource Teal300}}"
+                                                         VerticalOptions="Center" />
+                                                <Label FontSize="11"
+                                                       TextColor="{AppThemeBinding Light={StaticResource Success500}, Dark={StaticResource Teal300}}">
+                                                    <Label.Text>
+                                                        <MultiBinding StringFormat="{}{0} captured">
+                                                            <Binding Path="Captured" />
+                                                        </MultiBinding>
+                                                    </Label.Text>
+                                                </Label>
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout Spacing="5">
+                                                <BoxView WidthRequest="8" HeightRequest="8" CornerRadius="4"
+                                                         Color="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}"
+                                                         VerticalOptions="Center" />
+                                                <Label FontSize="11"
+                                                       TextColor="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}">
+                                                    <Label.Text>
+                                                        <MultiBinding StringFormat="{}{0} pending">
+                                                            <Binding Path="Uncaptured" />
+                                                        </MultiBinding>
+                                                    </Label.Text>
+                                                </Label>
+                                            </HorizontalStackLayout>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <Label Text="No area data yet" Style="{StaticResource SmallLabel}"
+                                   HorizontalOptions="Center" Margin="0,20" />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+                    <!-- ══════════ TOP 5 CONSUMERS ══════════ -->
+                    <Label Text="TOP 5 HIGHEST USAGE" Style="{StaticResource SectionLabel}" />
+
+                    <CollectionView ItemsSource="{Binding TopConsumers}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:TopConsumer">
+                                <Frame Margin="0,4" Padding="0" CornerRadius="16" HasShadow="False"
+                                       BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                                       BorderColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}">
+                                    <Grid ColumnDefinitions="5,*,Auto" Padding="0,12,14,12">
+                                        <BoxView Grid.Column="0" CornerRadius="5,0,0,5"
+                                                 Color="{AppThemeBinding Light={StaticResource Warning500}, Dark={StaticResource Warning500}}" />
+                                        <VerticalStackLayout Grid.Column="1" Spacing="2" Padding="14,0,0,0"
+                                                             VerticalOptions="Center">
+                                            <Label Text="{Binding Name}" FontSize="15" FontFamily="OpenSansSemibold"
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water50}}" />
+                                            <Label FontSize="12"
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource N400}}">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="Erf {0}  ·  {1}">
+                                                        <Binding Path="Erf" />
+                                                        <Binding Path="Area" />
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                            <Label FontSize="11"
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextTertiary}, Dark={StaticResource N500}}">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="Current reading: {0} kL">
+                                                        <Binding Path="Current" />
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                        </VerticalStackLayout>
+                                        <Border Grid.Column="2"
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource Warning100}, Dark={StaticResource Ocean700}}"
+                                                StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                                                Padding="10,6" VerticalOptions="Center">
+                                            <Label Text="{Binding UsageText}" FontSize="14" FontFamily="OpenSansSemibold"
+                                                   TextColor="{AppThemeBinding Light={StaticResource Warning500}, Dark={StaticResource Warning500}}" />
+                                        </Border>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <Label Text="No high-usage data found" Style="{StaticResource SmallLabel}"
+                                   HorizontalOptions="Center" Margin="0,20" />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+                    <!-- ══════════ SUMMARY FOOTER ══════════ -->
+                    <Frame Padding="16" CornerRadius="16" HasShadow="False" Margin="0,8,0,0"
+                           BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                           BorderColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}">
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                            <VerticalStackLayout Spacing="3" HorizontalOptions="Center">
+                                <Label Text="🔄" FontSize="22" HorizontalOptions="Center" />
+                                <Label Text="{Binding SyncedCount}" FontSize="22" FontFamily="OpenSansSemibold"
+                                       HorizontalOptions="Center"
+                                       TextColor="{AppThemeBinding Light={StaticResource Teal500}, Dark={StaticResource Teal300}}" />
+                                <Label Text="Synced" Style="{StaticResource TinyLabel}" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" Spacing="3" HorizontalOptions="Center">
+                                <Label Text="⚡" FontSize="22" HorizontalOptions="Center" />
+                                <Label Text="{Binding ZeroCount}" FontSize="22" FontFamily="OpenSansSemibold"
+                                       HorizontalOptions="Center"
+                                       TextColor="{AppThemeBinding Light={StaticResource Ocean500}, Dark={StaticResource Water300}}" />
+                                <Label Text="Zero Usage" Style="{StaticResource TinyLabel}" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="2" Spacing="3" HorizontalOptions="Center">
+                                <Label Text="🚨" FontSize="22" HorizontalOptions="Center" />
+                                <Label Text="{Binding AbnormalCount}" FontSize="22" FontFamily="OpenSansSemibold"
+                                       HorizontalOptions="Center"
+                                       TextColor="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}" />
+                                <Label Text="Abnormal" Style="{StaticResource TinyLabel}" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+
+                </VerticalStackLayout>
+
+                <!-- Loading overlay -->
+                <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"
+                                   HorizontalOptions="Center" Margin="0,20" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

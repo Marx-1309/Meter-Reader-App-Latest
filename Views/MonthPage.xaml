@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             xmlns:model="clr-namespace:SampleMauiMvvmApp.Models"
+             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             x:Class="SampleMauiMvvmApp.Views.MonthPage"
+             x:DataType="viewmodel:MonthViewModel"
+             Title="Sync Period"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Foam}, Dark={StaticResource Ocean900}}">
+
+    <Grid Padding="12,0" RowDefinitions="*,Auto">
+        <RefreshView Grid.Row="0"
+                     Command="{Binding GetMonthsCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView x:Name="monthList" ItemsSource="{Binding Months}"
+                            SelectionMode="None" Margin="0,8,0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Month">
+                        <Frame Margin="0,5" Padding="0" CornerRadius="18" HasShadow="False"
+                               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                               BorderColor="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource Ocean700}}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonthViewModel}}, Path=GoToListOfReadingsByMonthCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="68,*,Auto" Padding="12">
+                                <!-- Water drop icon -->
+                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource Water50}, Dark={StaticResource Ocean700}}"
+                                        StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                                        HeightRequest="48" WidthRequest="48"
+                                        VerticalOptions="Center" HorizontalOptions="Center">
+                                    <Label Text="🗓" FontSize="22"
+                                           HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+
+                                <VerticalStackLayout Grid.Column="1" Padding="12,0"
+                                                     VerticalOptions="Center" Spacing="2">
+                                    <Label Text="{Binding MonthName}"
+                                           FontSize="17" FontFamily="OpenSansSemibold"
+                                           TextColor="{AppThemeBinding Light={StaticResource Ocean800}, Dark={StaticResource Water50}}" />
+                                    <Label Text="Tap to view readings" FontSize="12"
+                                           TextColor="{AppThemeBinding Light={StaticResource N400}, Dark={StaticResource N500}}" />
+                                </VerticalStackLayout>
+
+                                <HorizontalStackLayout Grid.Column="2" Spacing="6" VerticalOptions="Center">
+                                    <skia:SKLottieView Source="active_animation.json" RepeatCount="-1"
+                                                       HeightRequest="38" WidthRequest="38"
+                                                       IsVisible="{Binding IsActive}" />
+                                    <Label Text="›" FontSize="24"
+                                           TextColor="{AppThemeBinding Light={StaticResource N300}, Dark={StaticResource N500}}"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                           HorizontalOptions="Center" Margin="0,6"
+                           Color="{DynamicResource Secondary}" />
+    </Grid>
+</ContentPage>

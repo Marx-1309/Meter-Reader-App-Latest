@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:SampleMauiMvvmApp.Models"
+             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             xmlns:searchHandlers="clr-namespace:SampleMauiMvvmApp.SearchHandlers"
+             x:Class="SampleMauiMvvmApp.Views.UncapturedReadingsByAreaPage"
+             Title="{Binding AreaTitle}"
+             x:DataType="viewmodel:ReadingViewModel"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Foam}, Dark={StaticResource Ocean900}}">
+
+    <Shell.SearchHandler>
+        <searchHandlers:CustomerSearchHandler
+            Placeholder="Search by Erf, Name or Meter No"
+            ShowsResults="True" QueryIcon="search" ClearIcon="clear"
+            NavigationRoute="CustomerDetailPage"
+            Readings="{x:Static viewmodel:ReadingViewModel.AreaReadingsListForSearch}">
+            <searchHandlers:CustomerSearchHandler.ItemTemplate>
+                <DataTemplate x:DataType="model:Reading">
+                    <Grid Margin="12,8" ColumnDefinitions="36,*">
+                        <Border BackgroundColor="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource Ocean700}}"
+                                StrokeShape="RoundRectangle 10" StrokeThickness="0"
+                                WidthRequest="36" HeightRequest="36">
+                            <Label Text="💧" FontSize="16"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Grid.Column="1" Text="{Binding SearchBarReadingInfo}"
+                               FontSize="14" FontFamily="OpenSansSemibold" Padding="10,0"
+                               VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource Ocean800}, Dark={StaticResource Water50}}" />
+                    </Grid>
+                </DataTemplate>
+            </searchHandlers:CustomerSearchHandler.ItemTemplate>
+        </searchHandlers:CustomerSearchHandler>
+    </Shell.SearchHandler>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Location header banner -->
+        <Grid Grid.Row="0" Padding="16,14,16,16" MinimumHeightRequest="64">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1A3A5C" Offset="0.0" />
+                    <GradientStop Color="#1A7DB5" Offset="0.6" />
+                    <GradientStop Color="#2AABEE" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Ellipse Fill="#1A2DD4BF" WidthRequest="100" HeightRequest="100"
+                     HorizontalOptions="End" VerticalOptions="Start" Margin="0,-30,-30,0" />
+
+            <Grid ColumnDefinitions="Auto,*,Auto" VerticalOptions="Center">
+                <Border BackgroundColor="#33FFFFFF"
+                        StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                        HeightRequest="40" WidthRequest="40"
+                        VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="📍" FontSize="18"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" Spacing="2" Padding="12,0">
+                    <Label Text="{Binding AreaTitle}" FontSize="18" FontFamily="OpenSansSemibold"
+                           TextColor="White" LineBreakMode="TailTruncation" />
+                    <Label Text="{Binding AreaReadings.Count, StringFormat='{0} uncaptured reading(s)'}"
+                           FontSize="12" TextColor="#BBCFE9F8" />
+                </VerticalStackLayout>
+                <Border Grid.Column="2" BackgroundColor="#33FFFFFF"
+                        StrokeShape="RoundRectangle 10" StrokeThickness="0"
+                        Padding="10,6" VerticalOptions="Center">
+                    <Label Text="{Binding AreaReadings.Count, StringFormat='{0}'}"
+                           FontSize="16" FontFamily="OpenSansSemibold"
+                           TextColor="White" HorizontalOptions="Center" />
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- Wave cutout -->
+        <BoxView Grid.Row="1" HeightRequest="20" VerticalOptions="Start"
+                 Margin="0,-10,0,0" CornerRadius="20,20,0,0"
+                 BackgroundColor="{AppThemeBinding Light={StaticResource Foam}, Dark={StaticResource Ocean900}}" />
+
+        <!-- Readings list -->
+        <Grid Grid.Row="1">
+            <Ellipse Fill="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource Ocean700}}"
+                     Opacity="0.3" WidthRequest="300" HeightRequest="300"
+                     HorizontalOptions="End" VerticalOptions="Start" Margin="0,-100,-100,0" />
+
+            <CollectionView x:Name="readingsList" ItemsSource="{Binding AreaReadings}"
+                            SelectionMode="None" Margin="0,12,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Reading">
+                        <Frame Margin="12,5" Padding="0" CornerRadius="18" HasShadow="False"
+                               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                               BorderColor="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource Ocean700}}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ReadingViewModel}}, Path=GoToCustomerDetailsCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="5,58,*,*" Padding="0,12,14,12">
+                                <!-- Status tide bar -->
+                                <BoxView Grid.Column="0" CornerRadius="5,0,0,5"
+                                         Color="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}"
+                                         IsVisible="{Binding ReadingNotTaken}" />
+                                <BoxView Grid.Column="0" CornerRadius="5,0,0,5"
+                                         Color="{AppThemeBinding Light={StaticResource Teal400}, Dark={StaticResource Teal300}}"
+                                         IsVisible="{Binding ReadingTaken}" />
+
+                                <!-- Status circle -->
+                                <Grid Grid.Column="1" Margin="8,0"
+                                      HeightRequest="44" WidthRequest="44"
+                                      VerticalOptions="Center" HorizontalOptions="Center">
+                                    <Border HeightRequest="40" WidthRequest="40"
+                                            BackgroundColor="#FF3B30"
+                                            StrokeShape="RoundRectangle 20" StrokeThickness="0"
+                                            HorizontalOptions="Center" VerticalOptions="Center"
+                                            IsVisible="{Binding ReadingNotTaken}">
+                                        <Label Text="✕" FontSize="16" FontFamily="OpenSansSemibold"
+                                               TextColor="White"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                    <Border HeightRequest="40" WidthRequest="40"
+                                            BackgroundColor="#34C759"
+                                            StrokeShape="RoundRectangle 20" StrokeThickness="0"
+                                            HorizontalOptions="Center" VerticalOptions="Center"
+                                            IsVisible="{Binding ReadingTaken}">
+                                        <Label Text="✓" FontSize="16" FontFamily="OpenSansSemibold"
+                                               TextColor="White"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                </Grid>
+
+                                <VerticalStackLayout Grid.Column="2" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="Customer Erf" Style="{StaticResource OverlineLabel}" />
+                                    <Label Text="{Binding ERF_NUMBER}" Style="{StaticResource MediumLabel}"
+                                           TextColor="{AppThemeBinding Light={StaticResource Ocean500}, Dark={StaticResource Water200}}" />
+                                    <Label Text="{Binding METER_NUMBER}" Style="{StaticResource SmallLabel}" />
+                                    <Label Text="{Binding CUSTOMER_NAME}" Style="{StaticResource TinyLabel}" />
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="3" Spacing="2"
+                                                     VerticalOptions="Center" HorizontalOptions="End">
+                                    <Label Text="Reading" Style="{StaticResource OverlineLabel}"
+                                           HorizontalOptions="End" />
+                                    <Label Text="{Binding CURRENT_READING, StringFormat=' {0}'}"
+                                           Style="{StaticResource LargeLabel}"
+                                           TextColor="{AppThemeBinding Light={StaticResource Water300}, Dark={StaticResource Ripple}}"
+                                           HorizontalOptions="End" />
+                                    <Label Text="{Binding AREA}" Style="{StaticResource TinyLabel}"
+                                           HorizontalOptions="End" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"
+                                         Spacing="14" Padding="40">
+                        <Label Text="💧" FontSize="56" HorizontalOptions="Center" />
+                        <Label Text="No readings found for this area" Style="{StaticResource MediumLabel}"
+                               HorizontalOptions="Center" />
+                        <Label Text="All readings may have been captured"
+                               Style="{StaticResource SmallLabel}" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+    </Grid>
+</ContentPage>

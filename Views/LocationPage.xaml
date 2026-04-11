@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:SampleMauiMvvmApp.Models"
+             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             x:Class="SampleMauiMvvmApp.Views.LocationPage"
+             x:DataType="viewmodel:ReadingViewModel"
+             Title="Locations"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Foam}, Dark={StaticResource Ocean900}}">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- ── Gradient header ── -->
+        <Grid Grid.Row="0" Padding="20,18,20,28" MinimumHeightRequest="110">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1A3A5C" Offset="0.0" />
+                    <GradientStop Color="#1A7DB5" Offset="0.6" />
+                    <GradientStop Color="#2AABEE" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Ellipse Fill="#1A2DD4BF" WidthRequest="140" HeightRequest="140"
+                     HorizontalOptions="End" VerticalOptions="Start" Margin="0,-50,-40,0" />
+
+            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                <VerticalStackLayout Spacing="3">
+                    <Label Text="My Locations" FontSize="22" FontFamily="OpenSansSemibold" TextColor="White" />
+                    <Label Text="{Binding AllLocation.Count, StringFormat='{0} area(s) with uncaptured readings'}"
+                           FontSize="12" TextColor="#BBCFE9F8" />
+                </VerticalStackLayout>
+                <Border Grid.Column="1"
+                        BackgroundColor="#33FFFFFF"
+                        StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                        HeightRequest="44" WidthRequest="44"
+                        VerticalOptions="Center">
+                    <Label Text="📍" FontSize="20"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- Wave cutout -->
+        <BoxView Grid.Row="1" HeightRequest="20" VerticalOptions="Start"
+                 Margin="0,-10,0,0" CornerRadius="20,20,0,0"
+                 BackgroundColor="{AppThemeBinding Light={StaticResource Foam}, Dark={StaticResource Ocean900}}" />
+
+        <!-- ── Locations list ── -->
+        <Grid Grid.Row="1">
+            <Ellipse Fill="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource Ocean700}}"
+                     Opacity="0.2" WidthRequest="260" HeightRequest="260"
+                     HorizontalOptions="Start" VerticalOptions="End" Margin="-80,0,0,-80" />
+
+            <RefreshView Command="{Binding GetLocationsCommand}"
+                         IsRefreshing="{Binding IsRefreshing}"
+                         Margin="0,12,0,0">
+                <CollectionView x:Name="locationsList"
+                                ItemsSource="{Binding AllLocation}"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:LocationReadings">
+                            <Frame Margin="12,5" Padding="0" CornerRadius="18" HasShadow="False"
+                                   BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                                   BorderColor="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource Ocean700}}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ReadingViewModel}}, Path=GoToListOfUncapturedReadingsByAreaCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="5,58,*,Auto" Padding="0,14,16,14">
+                                    <!-- Status bar — red if uncaptured remain -->
+                                    <BoxView Grid.Column="0" CornerRadius="5,0,0,5"
+                                             Color="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}"
+                                             IsVisible="{Binding IsAllNotCaptured}" />
+                                    <BoxView Grid.Column="0" CornerRadius="5,0,0,5"
+                                             Color="{AppThemeBinding Light={StaticResource Teal400}, Dark={StaticResource Teal300}}"
+                                             IsVisible="{Binding IsAllCaptured}" />
+
+                                    <!-- Location icon -->
+                                    <Grid Grid.Column="1" Margin="8,0"
+                                          HeightRequest="44" WidthRequest="44"
+                                          VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Border HeightRequest="42" WidthRequest="42"
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource Water50}, Dark={StaticResource Ocean700}}"
+                                                StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                                                HorizontalOptions="Center" VerticalOptions="Center">
+                                            <Label Text="📍" FontSize="18"
+                                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- Area info -->
+                                    <VerticalStackLayout Grid.Column="2" Spacing="3" VerticalOptions="Center">
+                                        <Label Text="{Binding AREANAME}"
+                                               FontSize="16" FontFamily="OpenSansSemibold"
+                                               TextColor="{AppThemeBinding Light={StaticResource Ocean800}, Dark={StaticResource Water50}}"
+                                               LineBreakMode="TailTruncation" />
+                                        <Label Text="Uncaptured readings" Style="{StaticResource SmallLabel}" />
+                                    </VerticalStackLayout>
+
+                                    <!-- Count badge -->
+                                    <Border Grid.Column="3"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource Danger100}, Dark=#33E53935}"
+                                            StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                                            Padding="12,6" VerticalOptions="Center"
+                                            HeightRequest="36" MinimumWidthRequest="42">
+                                        <Label Text="{Binding NumberOfReadings}"
+                                               FontSize="15" FontFamily="OpenSansSemibold"
+                                               TextColor="{AppThemeBinding Light={StaticResource Danger500}, Dark=#FF6B6B}"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"
+                                             Spacing="14" Padding="40">
+                            <Label Text="📍" FontSize="56" HorizontalOptions="Center" />
+                            <Label Text="No locations available" Style="{StaticResource MediumLabel}"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Pull down to refresh"
+                                   Style="{StaticResource SmallLabel}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </RefreshView>
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+    </Grid>
+</ContentPage>

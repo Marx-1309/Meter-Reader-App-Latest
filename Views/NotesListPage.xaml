@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:SampleMauiMvvmApp.Models"
+             xmlns:viewModels="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             x:DataType="viewModels:NotesViewModel"
+             x:Class="SampleMauiMvvmApp.Views.NotesListPage"
+             Title="My Notes"
+             BackgroundColor="{AppThemeBinding Light={StaticResource PageBg}, Dark={StaticResource Ocean900}}">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- ── Gradient header with greeting ── -->
+        <Grid Grid.Row="0" Padding="20,18,20,28" MinimumHeightRequest="110">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1A3A5C" Offset="0.0" />
+                    <GradientStop Color="#1A7DB5" Offset="0.6" />
+                    <GradientStop Color="#2AABEE" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Ellipse Fill="#1A2DD4BF" WidthRequest="140" HeightRequest="140"
+                     HorizontalOptions="End" VerticalOptions="Start" Margin="0,-50,-40,0" />
+
+            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                <VerticalStackLayout Spacing="3">
+                    <Label Text="My Notes" FontSize="22" FontFamily="OpenSansSemibold" TextColor="White" />
+                    <Label Text="{Binding Notes.Count, StringFormat='{0} note(s)'}"
+                           FontSize="12" TextColor="#BBCFE9F8" />
+                </VerticalStackLayout>
+                <!-- New note button -->
+                <Border Grid.Column="1"
+                        BackgroundColor="#33FFFFFF"
+                        StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                        Padding="14,10" VerticalOptions="Center">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddUpdateNoteCommand}" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="+" FontSize="18" FontFamily="OpenSansSemibold"
+                               TextColor="White" VerticalOptions="Center" />
+                        <Label Text="New" FontSize="14" FontFamily="OpenSansSemibold"
+                               TextColor="White" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- Wave cutout -->
+        <BoxView Grid.Row="1" HeightRequest="20" VerticalOptions="Start"
+                 Margin="0,-10,0,0" CornerRadius="20,20,0,0"
+                 BackgroundColor="{AppThemeBinding Light={StaticResource PageBg}, Dark={StaticResource Ocean900}}" />
+
+        <!-- ── Notes list ── -->
+        <CollectionView x:Name="notesList" Grid.Row="1"
+                        ItemsSource="{Binding Notes}"
+                        SelectionMode="None"
+                        Margin="0,16,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Notes">
+                    <SwipeView Margin="14,4">
+                        <!-- Swipe left: Edit + Delete -->
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItemView>
+                                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}"
+                                            StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                                            Padding="20,0" Margin="0,0,6,0" WidthRequest="76">
+                                        <Label Text="Edit" FontFamily="OpenSansSemibold" FontSize="13"
+                                               TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                </SwipeItemView>
+                                <SwipeItemView>
+                                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}"
+                                            StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                                            Padding="20,0" WidthRequest="76">
+                                        <Label Text="Delete" FontFamily="OpenSansSemibold" FontSize="13"
+                                               TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                </SwipeItemView>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+
+                        <!-- Note card -->
+                        <Frame Padding="0" CornerRadius="18" HasShadow="False"
+                               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                               BorderColor="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:NotesViewModel}}, Path=DisplayActionCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="5,*" HeightRequest="90">
+                                <!-- Coloured left accent bar -->
+                                <BoxView Grid.Column="0" CornerRadius="5,0,0,5"
+                                         BackgroundColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+
+                                <Grid Grid.Column="1" RowDefinitions="*,Auto"
+                                      Padding="14,12,14,12">
+                                    <!-- Title + content preview -->
+                                    <VerticalStackLayout Grid.Row="0" Spacing="4">
+                                        <Label Text="{Binding NoteTitle}"
+                                               FontSize="15" FontFamily="OpenSansSemibold"
+                                               TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water50}}"
+                                               LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding NoteContent}"
+                                               FontSize="13"
+                                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource N400}}"
+                                               MaxLines="2" LineBreakMode="WordWrap" />
+                                    </VerticalStackLayout>
+                                    <!-- Date + open hint -->
+                                    <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+                                        <Label Text="{Binding Date}" FontSize="11"
+                                               TextColor="{AppThemeBinding Light={StaticResource TextTertiary}, Dark={StaticResource N500}}"
+                                               VerticalOptions="Center" />
+                                        <Label Grid.Column="1" Text="Open ›" FontSize="11"
+                                               FontFamily="OpenSansSemibold"
+                                               TextColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"
+                                     Spacing="14" Padding="40">
+                    <Label Text="📝" FontSize="56" HorizontalOptions="Center" />
+                    <Label Text="No notes yet"
+                           FontSize="17" FontFamily="OpenSansSemibold"
+                           HorizontalOptions="Center"
+                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}" />
+                    <Label Text="Tap + New to write your first note"
+                           FontSize="13" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                           TextColor="{AppThemeBinding Light={StaticResource TextTertiary}, Dark={StaticResource N500}}" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="SampleMauiMvvmApp.Views.MonthCustomerTabPage"
+       xmlns:view="clr-namespace:SampleMauiMvvmApp.Views"
+       Shell.TabBarBackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+       Shell.TabBarForegroundColor="{AppThemeBinding Light={StaticResource Ocean500}, Dark={StaticResource Water300}}"
+       Shell.TabBarTitleColor="{AppThemeBinding Light={StaticResource Ocean500}, Dark={StaticResource Water300}}"
+       Shell.TabBarUnselectedColor="{AppThemeBinding Light={StaticResource N400}, Dark={StaticResource N600}}">
+
+    <TabBar>
+        <ShellContent Title="Month"      Icon="month_tabbed_icon.png"
+                      Shell.NavBarIsVisible="True"
+                      ContentTemplate="{DataTemplate view:MonthPage}" />
+        <ShellContent Title="Captured"   Icon="data_entry_icon.jpg"
+                      ContentTemplate="{DataTemplate view:CapturedReadingsPage}" />
+        <ShellContent Title="Uncaptured" Icon="water_tap_thick.png"
+                      ContentTemplate="{DataTemplate view:UncapturedReadingsPage}" />
+        <ShellContent Title="Locations"  Icon="add_readings_maually.jpg"
+                      ContentTemplate="{DataTemplate view:UncapturedReadingsByAreaPage}" />
+    </TabBar>
+</Shell>

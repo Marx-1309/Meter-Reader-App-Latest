@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="456" height="456" viewBox="0 0 456 456" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ── KW letters — dark charcoal, centred ── -->
+  <!-- K: left vertical bar -->
+  <rect x="90" y="165" width="40" height="165" rx="10" fill="#2A2A2A"/>
+  <!-- K: upper-right diagonal arm -->
+  <polygon points="130,165 180,165 270,247 225,247" fill="#2A2A2A"/>
+  <!-- K: lower-right diagonal arm -->
+  <polygon points="130,330 180,330 270,248 225,248" fill="#2A2A2A"/>
+
+  <!-- W: built from 4 diagonal strokes -->
+  <!-- W left outer down -->
+  <polygon points="198,165 236,165 254,280 216,280" fill="#2A2A2A"/>
+  <!-- W middle up -->
+  <polygon points="216,280 254,280 228,200 210,200" fill="#2A2A2A"/>
+  <!-- W middle down -->
+  <polygon points="228,200 246,200 264,280 246,280" fill="#2A2A2A"/>
+  <!-- W right outer down -->
+  <polygon points="246,165 284,165 302,280 264,280" fill="#2A2A2A"/>
+  <!-- W bottom bar to close -->
+  <rect x="198" y="310" width="110" height="20" rx="5" fill="#2A2A2A"/>
+
+  <!-- ── Satellite tiles — red, flying upper-right at ~45° ── -->
+  <!-- Tile 1 — largest, closest -->
+  <rect x="278" y="98" width="52" height="34" rx="7"
+        fill="#CC0000" stroke="#FF3333" stroke-width="1.5"
+        transform="rotate(-35 304 115)" filter="url(#glow)"/>
+  <!-- Tile 2 -->
+  <rect x="316" y="66" width="40" height="26" rx="5"
+        fill="#CC0000" stroke="#FF4444" stroke-width="1.2"
+        transform="rotate(-35 336 79)"/>
+  <!-- Tile 3 — medium -->
+  <rect x="348" y="38" width="32" height="20" rx="4"
+        fill="#B00000" stroke="#DD2222" stroke-width="1"
+        transform="rotate(-35 364 48)"/>
+  <!-- Tile 4 — small, furthest -->
+  <rect x="374" y="18" width="22" height="14" rx="3"
+        fill="#880000" transform="rotate(-35 385 25)"/>
+
+  <!-- Satellite body connector bar -->
+  <rect x="274" y="116" width="70" height="10" rx="5"
+        fill="#AA0000" transform="rotate(-35 309 121)"/>
+
+  <!-- Small shine dot on K -->
+  <ellipse cx="130" cy="195" rx="8" ry="10" fill="white" opacity="0.18"/>
+</svg>

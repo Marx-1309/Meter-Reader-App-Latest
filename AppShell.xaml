@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="SampleMauiMvvmApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:SampleMauiMvvmApp.Views"
+    xmlns:view="clr-namespace:SampleMauiMvvmApp.Views"
+    Shell.FlyoutBehavior="Flyout">
+
+    <!--
+        FlyoutBackground is set in code-behind so it can respond to theme changes.
+        Default (light mode): bright TeleBlue gradient — white text stays readable.
+        Dark mode: overridden to deep-ocean gradient in code-behind.
+    -->
+    <Shell.FlyoutBackground>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#1A7DB5" Offset="0.0" />
+            <GradientStop Color="#2AABEE" Offset="1.0" />
+        </LinearGradientBrush>
+    </Shell.FlyoutBackground>
+
+    <ShellContent ContentTemplate="{DataTemplate local:LoadingPage}"
+                  Route="MenuPage" FlyoutItemIsVisible="False" />
+
+    <FlyoutItem Route="MonthCustomerTabPage" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Not Captured" Icon="water_tap_thick.png"
+                      ContentTemplate="{DataTemplate view:UncapturedReadingsPage}" />
+        <ShellContent Title="Captured"     Icon="data_entry_icon.jpg"
+                      ContentTemplate="{DataTemplate view:CapturedReadingsPage}" />
+        <ShellContent Title="Sync"         Icon="cloud_sync_icon.png"
+                      ContentTemplate="{DataTemplate view:MonthPage}" />
+        <ShellContent Title="Locations"    Icon="uncapturedlocation_logo.png"
+                      ContentTemplate="{DataTemplate view:LocationPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Analytics" Icon="analytics_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate view:AnalyticsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Route="AddNewFlyoutItem" Title="App Menu Options" Icon="menu_options_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate view:MenuPage}" />
+    </FlyoutItem>
+
+    <!-- Header -->
+    <Shell.FlyoutHeader>
+        <Grid x:Name="flyoutHeader" HeightRequest="210" BackgroundColor="#1A7DB5">
+            <!-- Ripple bubbles -->
+            <Ellipse Fill="#222AABEE" WidthRequest="200" HeightRequest="200"
+                     HorizontalOptions="End" VerticalOptions="Start" Margin="0,-60,-40,0" />
+            <Ellipse Fill="#115EC3F5" WidthRequest="120" HeightRequest="120"
+                     HorizontalOptions="Start" VerticalOptions="End" Margin="-40,0,0,-20" />
+
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Start"
+                                 Padding="24,0,20,0" Spacing="6">
+                <!-- Avatar -->
+                <Border BackgroundColor="#33FFFFFF"
+                        StrokeShape="RoundRectangle 40"
+                        Stroke="#55FFFFFF"
+                        StrokeThickness="2"
+                        HeightRequest="72" WidthRequest="72">
+                    <Image Source="user_profile.png" Aspect="AspectFill"
+                           HeightRequest="72" WidthRequest="72" />
+                </Border>
+                <Label x:Name="lblUsername"
+                       FontSize="15" FontFamily="OpenSansSemibold"
+                       TextColor="White"
+                       LineBreakMode="TailTruncation" />
+                <Label x:Name="lblUserSite"
+                       FontSize="12" TextColor="#CCFFFFFF"
+                       LineBreakMode="TailTruncation" />
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <!-- Footer -->
+    <Shell.FlyoutFooter>
+        <Grid x:Name="flyoutFooter" Padding="16,10" BackgroundColor="#1565A8"
+              ColumnDefinitions="*,Auto">
+            <Label Text="Meter Reader · Kinetic Wizard"
+                   FontSize="12" TextColor="#AAFFFFFF" VerticalOptions="Center" />
+            <HorizontalStackLayout Grid.Column="1" Spacing="8" VerticalOptions="Center">
+                <Label Text="☾" FontSize="16" VerticalOptions="Center" TextColor="#CCFFFFFF" />
+                <Switch Toggled="OnThemeToggled" VerticalOptions="Center" Scale="0.85" />
+            </HorizontalStackLayout>
+        </Grid>
+    </Shell.FlyoutFooter>
+</Shell>

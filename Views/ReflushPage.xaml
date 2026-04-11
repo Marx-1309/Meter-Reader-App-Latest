@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModels="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             x:DataType="viewModels:ReadingViewModel"
+             x:Class="SampleMauiMvvmApp.Views.ReflushPage"
+             Title="Recycle Readings"
+             BackgroundColor="{AppThemeBinding Light={StaticResource PageBg}, Dark={StaticResource Ocean900}}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="reset2_icon.png"
+                     Command="{Binding ResetReadingCommand}"
+                     Order="Primary" Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout x:Name="reflushContent" Spacing="10"
+                                 Padding="14,14,14,10"
+                                 Opacity="0" TranslationY="16">
+
+                <!-- Warning banner -->
+                <Frame HasShadow="False" CornerRadius="16" Padding="14,12"
+                       BackgroundColor="#FFF8E1" BorderColor="#F59E0B">
+                    <HorizontalStackLayout Spacing="12">
+                        <Label Text="⚠" FontSize="28" VerticalOptions="Center" TextColor="#7C4700" />
+                        <VerticalStackLayout Spacing="3" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                            <Label Text="READ BEFORE PROCEEDING"
+                                   FontSize="13" FontFamily="OpenSansSemibold"
+                                   CharacterSpacing="0.6" TextColor="#7C4700" />
+                            <Label Text="Failure to follow these steps may result in lost or incomplete readings."
+                                   FontSize="14" LineHeight="1.45" TextColor="#5C3300" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </Frame>
+
+                <!-- ═══ ACCORDION: Step 1 ═══ -->
+                <Frame HasShadow="False" CornerRadius="16" Padding="0"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                       BorderColor="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}">
+                    <toolkit:Expander>
+                        <toolkit:Expander.Header>
+                            <Grid ColumnDefinitions="44,*,Auto" Padding="14,14">
+                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}"
+                                        StrokeShape="RoundRectangle 22" StrokeThickness="0"
+                                        HeightRequest="36" WidthRequest="36" VerticalOptions="Center">
+                                    <Label Text="1" FontSize="16" FontFamily="OpenSansSemibold"
+                                           TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <Label Grid.Column="1" Text="Initialization"
+                                       FontSize="15" FontFamily="OpenSansSemibold"
+                                       TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}"
+                                       VerticalOptions="Center" Margin="12,0,0,0" />
+                                <Label Grid.Column="2" Text="›" FontSize="20"
+                                       TextColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </toolkit:Expander.Header>
+                        <VerticalStackLayout Padding="14,0,14,14" Spacing="0">
+                            <BoxView HeightRequest="1" Margin="0,0,0,10"
+                                     Color="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}" />
+                            <Label FontSize="14" LineHeight="1.55"
+                                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource N200}}">
+                                <Label.Text>No manual setup needed. The app automatically handles the synchronization process when you tap Recycle Readings below.</Label.Text>
+                            </Label>
+                        </VerticalStackLayout>
+                    </toolkit:Expander>
+                </Frame>
+
+                <!-- ═══ ACCORDION: Step 2 ═══ -->
+                <Frame HasShadow="False" CornerRadius="16" Padding="0"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                       BorderColor="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}">
+                    <toolkit:Expander>
+                        <toolkit:Expander.Header>
+                            <Grid ColumnDefinitions="44,*,Auto" Padding="14,14">
+                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}"
+                                        StrokeShape="RoundRectangle 22" StrokeThickness="0"
+                                        HeightRequest="36" WidthRequest="36" VerticalOptions="Center">
+                                    <Label Text="2" FontSize="16" FontFamily="OpenSansSemibold"
+                                           TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <Label Grid.Column="1" Text="Check Internet Connection"
+                                       FontSize="15" FontFamily="OpenSansSemibold"
+                                       TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}"
+                                       VerticalOptions="Center" Margin="12,0,0,0" />
+                                <Label Grid.Column="2" Text="›" FontSize="20"
+                                       TextColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </toolkit:Expander.Header>
+                        <VerticalStackLayout Padding="14,0,14,14" Spacing="0">
+                            <BoxView HeightRequest="1" Margin="0,0,0,10"
+                                     Color="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}" />
+                            <Label FontSize="14" LineHeight="1.55"
+                                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource N200}}">
+                                <Label.Text>Connect your device to the office WiFi ONLY before syncing. Do NOT use mobile data — this can cause partial uploads and data loss.</Label.Text>
+                            </Label>
+                        </VerticalStackLayout>
+                    </toolkit:Expander>
+                </Frame>
+
+                <!-- ═══ ACCORDION: Step 3 ═══ -->
+                <Frame HasShadow="False" CornerRadius="16" Padding="0"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                       BorderColor="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}">
+                    <toolkit:Expander>
+                        <toolkit:Expander.Header>
+                            <Grid ColumnDefinitions="44,*,Auto" Padding="14,14">
+                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}"
+                                        StrokeShape="RoundRectangle 22" StrokeThickness="0"
+                                        HeightRequest="36" WidthRequest="36" VerticalOptions="Center">
+                                    <Label Text="3" FontSize="16" FontFamily="OpenSansSemibold"
+                                           TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <Label Grid.Column="1" Text="Start Synchronization"
+                                       FontSize="15" FontFamily="OpenSansSemibold"
+                                       TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}"
+                                       VerticalOptions="Center" Margin="12,0,0,0" />
+                                <Label Grid.Column="2" Text="›" FontSize="20"
+                                       TextColor="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </toolkit:Expander.Header>
+                        <VerticalStackLayout Padding="14,0,14,14" Spacing="0">
+                            <BoxView HeightRequest="1" Margin="0,0,0,10"
+                                     Color="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}" />
+                            <Label FontSize="14" LineHeight="1.55"
+                                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource N200}}">
+                                <Label.Text>Tap Recycle Readings below. All readings for the current month will sync — including readings captured by other users on the same export.</Label.Text>
+                            </Label>
+                        </VerticalStackLayout>
+                    </toolkit:Expander>
+                </Frame>
+
+                <!-- ═══ ACCORDION: Step 4 — Critical ═══ -->
+                <Frame HasShadow="False" CornerRadius="16" Padding="0"
+                       BackgroundColor="#FFF0F0"
+                       BorderColor="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}">
+                    <toolkit:Expander>
+                        <toolkit:Expander.Header>
+                            <Grid ColumnDefinitions="44,*,Auto" Padding="14,14">
+                                <Border BackgroundColor="{StaticResource Danger500}"
+                                        StrokeShape="RoundRectangle 22" StrokeThickness="0"
+                                        HeightRequest="36" WidthRequest="36" VerticalOptions="Center">
+                                    <Label Text="!" FontSize="18" FontFamily="OpenSansSemibold"
+                                           TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <Label Grid.Column="1" Text="Do NOT Close During Sync"
+                                       FontSize="15" FontFamily="OpenSansSemibold"
+                                       TextColor="#B91C1C"
+                                       VerticalOptions="Center" Margin="12,0,0,0" />
+                                <Label Grid.Column="2" Text="›" FontSize="20"
+                                       TextColor="{StaticResource Danger500}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </toolkit:Expander.Header>
+                        <VerticalStackLayout Padding="14,0,14,14" Spacing="0">
+                            <BoxView HeightRequest="1" Margin="0,0,0,10" Color="#FFCDD2" />
+                            <Label FontSize="14" LineHeight="1.55" TextColor="#7F1D1D">
+                                <Label.Text>Do not navigate away, lock the screen, or close the app while sync is running. Wait for the confirmation message before doing anything else.</Label.Text>
+                            </Label>
+                        </VerticalStackLayout>
+                    </toolkit:Expander>
+                </Frame>
+
+                <!-- Tip card -->
+                <Frame HasShadow="False" CornerRadius="16" Padding="14,12"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource TeleBlueLight}, Dark={StaticResource Ocean800}}"
+                       BorderColor="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource Ocean700}}">
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="💡" FontSize="18" VerticalOptions="Center" />
+                        <Label FontSize="14" LineHeight="1.5" VerticalOptions="Center"
+                               HorizontalOptions="FillAndExpand"
+                               TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}">
+                            <Label.Text>If you go offline mid-sync, reconnect to WiFi and tap Recycle Readings again to resume.</Label.Text>
+                        </Label>
+                    </HorizontalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Action -->
+        <VerticalStackLayout Grid.Row="1" Padding="14,10,14,30" Spacing="0"
+                             BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}">
+            <BoxView HeightRequest="1" Margin="0,0,0,10"
+                     Color="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}" />
+            <Button Text="Recycle Readings" Style="{StaticResource BtnDanger}"
+                    Command="{Binding ReflushDataCommand}" />
+        </VerticalStackLayout>
+
+        <ActivityIndicator Grid.RowSpan="2"
+                           IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+    </Grid>
+</ContentPage>

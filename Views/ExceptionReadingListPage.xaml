@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SampleMauiMvvmApp.Views.ExceptionReadingListPage"
+             xmlns:model="clr-namespace:SampleMauiMvvmApp.Models"
+             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             x:DataType="viewmodel:ReadingViewModel"
+             Title="Abnormal Readings"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Foam}, Dark={StaticResource Ocean900}}">
+    <Grid RowDefinitions="Auto,*">
+        <ActivityIndicator Grid.Row="0" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="Center" Margin="8,4" />
+        <RefreshView Grid.Row="1" IsEnabled="True"
+                     Command="{Binding GoToExceptionListCommand}" IsRefreshing="{Binding IsBusy}">
+            <CollectionView ItemsSource="{Binding exceptionReadings}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Reading">
+                        <Frame Margin="12,5" Padding="0" CornerRadius="18" HasShadow="False"
+                               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                               BorderColor="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource Ocean700}}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ReadingViewModel}}, Path=GoToCustomerDetailsCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="5,82,*,*" Padding="0,14,14,14">
+                                <BoxView Grid.Column="0" CornerRadius="5,0,0,5"
+                                         Color="{AppThemeBinding Light={StaticResource Warning500}, Dark={StaticResource Warning500}}" />
+                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center"
+                                                     VerticalOptions="Center" Spacing="4" Padding="8,0">
+                                    <Label Text="Usage" FontSize="11" FontFamily="OpenSansSemibold"
+                                           TextColor="{AppThemeBinding Light={StaticResource N400}, Dark={StaticResource N500}}"
+                                           HorizontalOptions="Center" />
+                                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource Warning100}, Dark={StaticResource Ocean700}}"
+                                            StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="8,4">
+                                        <Label Text="{Binding PercentageChange}" FontSize="22" FontFamily="OpenSansSemibold"
+                                               TextColor="{AppThemeBinding Light={StaticResource Warning500}, Dark={StaticResource Warning500}}"
+                                               HorizontalOptions="Center" />
+                                    </Border>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="2" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="Customer" Style="{StaticResource OverlineLabel}" />
+                                    <Label Text="{Binding ERF_NUMBER}" FontSize="13"
+                                           TextColor="{AppThemeBinding Light={StaticResource N600}, Dark={StaticResource N300}}" />
+                                    <Label Text="{Binding CUSTOMER_NAME}" FontSize="14" FontFamily="OpenSansSemibold"
+                                           TextColor="{AppThemeBinding Light={StaticResource Ocean800}, Dark={StaticResource Water50}}" />
+                                    <Label Text="{Binding METER_NUMBER}" FontSize="13"
+                                           TextColor="{AppThemeBinding Light={StaticResource Ocean500}, Dark={StaticResource Water200}}" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="3" Spacing="2" VerticalOptions="Center" HorizontalOptions="End">
+                                    <Label Text="Reader" Style="{StaticResource OverlineLabel}" HorizontalOptions="End" />
+                                    <Label Text="{Binding METER_READER}" FontSize="13"
+                                           TextColor="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}"
+                                           HorizontalOptions="End" />
+                                    <Label Text="{Binding ReadingDate, StringFormat='{0:MMM dd, yyyy}'}" FontSize="12"
+                                           TextColor="{AppThemeBinding Light={StaticResource N400}, Dark={StaticResource N500}}"
+                                           HorizontalOptions="End" />
+                                    <Label Text="{Binding AREA}" FontSize="11" FontAttributes="Italic"
+                                           TextColor="{AppThemeBinding Light={StaticResource N400}, Dark={StaticResource N500}}"
+                                           HorizontalOptions="End" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="14" Padding="40">
+                        <Label Text="✅" FontSize="56" HorizontalOptions="Center" />
+                        <Label Text="No abnormal readings" Style="{StaticResource MediumLabel}" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

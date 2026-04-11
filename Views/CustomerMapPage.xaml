@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             x:Class="SampleMauiMvvmApp.Views.CustomerMapPage"
+             x:DataType="viewmodel:CustomerMapViewModel"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <!-- Fullscreen Map -->
+        <maps:Map x:Name="customerMap"
+                  MapType="Street"
+                  IsShowingUser="True"
+                  VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand" />
+
+        <!-- Top bar with back button and filter -->
+        <Grid VerticalOptions="Start" Padding="12,48,12,0"
+              ColumnDefinitions="Auto,*,Auto">
+            <!-- Back button -->
+            <Border BackgroundColor="{AppThemeBinding Light=#EEFFFFFF, Dark=#CC1C3A56}"
+                    StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                    HeightRequest="44" WidthRequest="44"
+                    VerticalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackArrowClicked" />
+                </Border.GestureRecognizers>
+                <Label Text="←" FontSize="22" FontFamily="OpenSansSemibold"
+                       TextColor="{AppThemeBinding Light=#1A3A5C, Dark=White}"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+
+            <!-- Title -->
+            <Label Grid.Column="1" Text="Meter Locations"
+                   FontSize="17" FontFamily="OpenSansSemibold"
+                   TextColor="{AppThemeBinding Light=#1A3A5C, Dark=White}"
+                   HorizontalOptions="Center" VerticalOptions="Center" />
+
+            <!-- Filter button -->
+            <Border Grid.Column="2"
+                    BackgroundColor="{AppThemeBinding Light=#EEFFFFFF, Dark=#CC1C3A56}"
+                    StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                    HeightRequest="44" WidthRequest="44"
+                    VerticalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnFilterClicked" />
+                </Border.GestureRecognizers>
+                <Label Text="⚙" FontSize="20"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+        </Grid>
+
+        <!-- Filter chips row -->
+        <HorizontalStackLayout x:Name="filterChips"
+                               VerticalOptions="Start" HorizontalOptions="Center"
+                               Spacing="8" Padding="0,100,0,0">
+            <Border x:Name="chipAll" BackgroundColor="#EE2AABEE"
+                    StrokeShape="RoundRectangle 20" StrokeThickness="0"
+                    Padding="16,8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnFilterAll" />
+                </Border.GestureRecognizers>
+                <Label Text="All" FontSize="13" FontFamily="OpenSansSemibold"
+                       TextColor="White" />
+            </Border>
+            <Border x:Name="chipUncaptured" BackgroundColor="#88FFFFFF"
+                    StrokeShape="RoundRectangle 20" StrokeThickness="0"
+                    Padding="16,8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnFilterUncaptured" />
+                </Border.GestureRecognizers>
+                <Label Text="Uncaptured" FontSize="13" FontFamily="OpenSansSemibold"
+                       TextColor="#1A3A5C" />
+            </Border>
+            <Border x:Name="chipCaptured" BackgroundColor="#88FFFFFF"
+                    StrokeShape="RoundRectangle 20" StrokeThickness="0"
+                    Padding="16,8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnFilterCaptured" />
+                </Border.GestureRecognizers>
+                <Label Text="Captured" FontSize="13" FontFamily="OpenSansSemibold"
+                       TextColor="#1A3A5C" />
+            </Border>
+        </HorizontalStackLayout>
+
+        <!-- Pin count badge -->
+        <Border x:Name="pinCountBadge"
+                VerticalOptions="End" HorizontalOptions="Start"
+                Margin="16,0,0,24"
+                BackgroundColor="{AppThemeBinding Light=#EE1A3A5C, Dark=#EE0D1F33}"
+                StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                Padding="14,10" IsVisible="False">
+            <Label x:Name="lblPinCount" FontSize="13" FontFamily="OpenSansSemibold"
+                   TextColor="White" />
+        </Border>
+
+        <!-- Loading -->
+        <Border VerticalOptions="Center" HorizontalOptions="Center"
+                BackgroundColor="{AppThemeBinding Light=#EEFFFFFF, Dark=#CC1C3A56}"
+                StrokeShape="RoundRectangle 16" StrokeThickness="0"
+                Padding="20" IsVisible="{Binding IsBusy}">
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                   WidthRequest="36" HeightRequest="36" />
+                <Label Text="Loading meters…" FontSize="13"
+                       TextColor="{AppThemeBinding Light=#1A3A5C, Dark=White}"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

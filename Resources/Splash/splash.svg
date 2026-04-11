@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="456" height="456" viewBox="0 0 456 456" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="redBg" cx="50%" cy="48%" r="52%">
+      <stop offset="0%"   stop-color="#EE1111"/>
+      <stop offset="100%" stop-color="#990000"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#00000044"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="456" height="456" fill="url(#redBg)"/>
+
+  <!-- Outer subtle ring -->
+  <circle cx="228" cy="228" r="195" fill="none" stroke="white" stroke-width="1" opacity="0.12"/>
+  <circle cx="228" cy="228" r="210" fill="none" stroke="white" stroke-width="1" opacity="0.06"/>
+
+  <!-- ── KW letters — white/light on red ── -->
+  <!-- K left bar -->
+  <rect x="78" y="165" width="36" height="155" rx="9" fill="#1A1A1A" filter="url(#shadow)"/>
+  <!-- K upper arm -->
+  <polygon points="114,165 158,165 238,242 194,242" fill="#1A1A1A" filter="url(#shadow)"/>
+  <!-- K lower arm -->
+  <polygon points="114,320 158,320 238,243 194,243" fill="#1A1A1A" filter="url(#shadow)"/>
+
+  <!-- W left stroke -->
+  <polygon points="192,165 228,165 244,268 208,268" fill="#1A1A1A" filter="url(#shadow)"/>
+  <!-- W centre up -->
+  <polygon points="208,268 244,268 228,200 212,200" fill="#1A1A1A"/>
+  <!-- W centre down -->
+  <polygon points="228,200 244,200 260,268 244,268" fill="#1A1A1A"/>
+  <!-- W right stroke -->
+  <polygon points="244,165 280,165 296,268 260,268" fill="#1A1A1A" filter="url(#shadow)"/>
+  <!-- W base -->
+  <rect x="192" y="300" width="108" height="17" rx="5" fill="#1A1A1A"/>
+
+  <!-- ── Satellite tiles — bright white-red, upper right ── -->
+  <rect x="274" y="92" width="50" height="32" rx="7"
+        fill="#FF2222" stroke="white" stroke-width="1.8" stroke-opacity="0.5"
+        transform="rotate(-35 299 108)" filter="url(#glow)"/>
+  <rect x="312" y="62" width="38" height="24" rx="5"
+        fill="#FF2222" stroke="white" stroke-width="1.2" stroke-opacity="0.4"
+        transform="rotate(-35 331 74)"/>
+  <rect x="344" y="36" width="30" height="19" rx="4"
+        fill="#DD1111" transform="rotate(-35 359 45)"/>
+  <rect x="370" y="16" width="20" height="13" rx="3"
+        fill="#BB0000" transform="rotate(-35 380 22)"/>
+  <!-- Connector -->
+  <rect x="272" y="110" width="66" height="9" rx="4"
+        fill="#CC1111" transform="rotate(-35 305 114)"/>
+
+  <!-- "KINETIC WIZARD" wordmark below KW -->
+  <text x="228" y="370" font-family="Arial, sans-serif" font-size="22"
+        font-weight="700" fill="white" text-anchor="middle" opacity="0.88"
+        letter-spacing="4">KINETIC WIZARD</text>
+</svg>

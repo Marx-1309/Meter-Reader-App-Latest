@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             x:Class="SampleMauiMvvmApp.Views.SyncNewCustomersPage"
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <Grid>
+        <!-- Deep ocean background -->
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#061929" Offset="0.0" />
+                    <GradientStop Color="#0A2342" Offset="0.4" />
+                    <GradientStop Color="#0E5C8C" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Bubble decorations -->
+        <Ellipse Fill="#111A9BC7" WidthRequest="250" HeightRequest="250"
+                 HorizontalOptions="End" VerticalOptions="Start" Margin="0,-80,-80,0" />
+        <Ellipse Fill="#0A2DD4BF" WidthRequest="180" HeightRequest="180"
+                 HorizontalOptions="Start" VerticalOptions="End" Margin="-60,0,0,-60" />
+
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="24">
+            <Border BackgroundColor="#221A9BC7"
+                    StrokeShape="RoundRectangle 40" StrokeThickness="0"
+                    Padding="20" WidthRequest="160" HeightRequest="160"
+                    HorizontalOptions="Center">
+                <skia:SKLottieView Source="sync_animation.json" RepeatCount="-1"
+                                   HeightRequest="120" WidthRequest="120"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+            <Label Text="💧 Meter Reader"
+                   FontSize="22" FontFamily="OpenSansSemibold"
+                   TextColor="White" HorizontalOptions="Center" />
+            <Label Text="Please wait…"
+                   FontSize="14" TextColor="#99B3E8F5"
+                   HorizontalOptions="Center" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                               Color="#7CE3FA" HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

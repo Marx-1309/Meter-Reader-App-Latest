@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- ═══ TELEGRAM-WATER PALETTE ═══════════════════════════════════════
+         Light mode: Telegram-style bright white cards, vivid sky-blue accent
+         Dark mode:  deep navy shell, card surface one step lighter
+    ═══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Primary accent — Telegram sky-blue tuned for water -->
+    <Color x:Key="TeleBlue">#2AABEE</Color>       <!-- main interactive blue -->
+    <Color x:Key="TeleBlueDark">#1A8FC0</Color>   <!-- pressed / darker shade  -->
+    <Color x:Key="TeleBlueLight">#E8F5FD</Color>  <!-- tinted bg / chips       -->
+
+    <!-- Ocean tones (shell/header backgrounds) -->
+    <Color x:Key="Ocean900">#0D1117</Color>
+    <Color x:Key="Ocean800">#161B22</Color>
+    <Color x:Key="Ocean700">#1C3A56</Color>
+    <Color x:Key="Ocean600">#1A5276</Color>
+    <Color x:Key="Ocean500">#1A7DB5</Color>
+
+    <!-- Mid water accent -->
+    <Color x:Key="Water400">#2AABEE</Color>        <!-- == TeleBlue -->
+    <Color x:Key="Water300">#5EC3F5</Color>
+    <Color x:Key="Water200">#A8DCFA</Color>
+    <Color x:Key="Water100">#D6F0FC</Color>
+    <Color x:Key="Water50">#EBF7FE</Color>
+
+    <!-- Teal -->
+    <Color x:Key="Teal500">#0D9488</Color>
+    <Color x:Key="Teal400">#14B8A6</Color>
+    <Color x:Key="Teal300">#2DD4BF</Color>
+    <Color x:Key="Teal100">#B2F0E8</Color>
+
+    <!-- Semantic -->
+    <Color x:Key="Danger500">#E53935</Color>
+    <Color x:Key="Danger100">#FDECEA</Color>
+    <Color x:Key="Success500">#1B6E2D</Color>
+    <Color x:Key="Success100">#D9F2DE</Color>
+    <Color x:Key="Warning500">#B45309</Color>
+    <Color x:Key="Warning100">#FEF3C7</Color>
+
+    <!-- Surfaces — Telegram style: pure white cards, very light page bg -->
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
+    <Color x:Key="PageBg">#F0F2F5</Color>          <!-- Telegram light page bg  -->
+    <Color x:Key="CardBg">#FFFFFF</Color>           <!-- card surface            -->
+    <Color x:Key="Foam">#F0F2F5</Color>             <!-- alias for page bg       -->
+
+    <!-- Text — near-black for outdoor contrast -->
+    <Color x:Key="TextPrimary">#0A1523</Color>      <!-- main body text          -->
+    <Color x:Key="TextSecondary">#3E6080</Color>    <!-- secondary / labels      -->
+    <Color x:Key="TextTertiary">#6A8FA8</Color>     <!-- placeholder / captions  -->
+
+    <!-- Neutrals -->
+    <Color x:Key="N50">#F0F4F8</Color>
+    <Color x:Key="N100">#DAEAF5</Color>
+    <Color x:Key="N200">#B3D3E8</Color>
+    <Color x:Key="N300">#7DB5D4</Color>
+    <Color x:Key="N400">#4A90B8</Color>
+    <Color x:Key="N500">#2E6F96</Color>
+    <Color x:Key="N600">#1A4E6B</Color>
+    <Color x:Key="N700">#0D3050</Color>
+    <Color x:Key="N800">#071E36</Color>
+    <Color x:Key="N900">#030F1C</Color>
+
+    <!-- Legacy / semantic tokens -->
+    <Color x:Key="Primary">#2AABEE</Color>
+    <Color x:Key="Secondary">#5EC3F5</Color>
+    <Color x:Key="Tertiary">#2DD4BF</Color>
+    <Color x:Key="Gray100">#DAEAF5</Color>
+    <Color x:Key="Gray200">#B3D3E8</Color>
+    <Color x:Key="Gray300">#7DB5D4</Color>
+    <Color x:Key="Gray400">#4A90B8</Color>
+    <Color x:Key="Gray500">#2E6F96</Color>
+    <Color x:Key="Gray600">#1A4E6B</Color>
+    <Color x:Key="Gray900">#030F1C</Color>
+    <Color x:Key="Gray950">#010A12</Color>
+
+    <!-- Accent aliases referenced by views -->
+    <Color x:Key="Ripple">#A8DCFA</Color>
+    <Color x:Key="DangerColor">#E53935</Color>
+
+    <SolidColorBrush x:Key="PrimaryBrush"   Color="{StaticResource Primary}" />
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}" />
+    <SolidColorBrush x:Key="WhiteBrush"     Color="{StaticResource White}" />
+</ResourceDictionary>

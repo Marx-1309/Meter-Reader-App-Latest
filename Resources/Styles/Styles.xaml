@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- ═══ PAGE ═══ -->
+    <Style TargetType="Page" ApplyToDerivedTypes="True">
+        <Setter Property="Padding" Value="0" />
+        <!-- Telegram light: #F0F2F5  |  dark: deep navy -->
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBg}, Dark={StaticResource Ocean900}}" />
+    </Style>
+
+    <!-- ═══ SHELL ═══ -->
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor"       Value="{AppThemeBinding Light={StaticResource TeleBlueDark}, Dark={StaticResource Ocean800}}" />
+        <Setter Property="Shell.ForegroundColor"       Value="{StaticResource White}" />
+        <Setter Property="Shell.TitleColor"            Value="{StaticResource White}" />
+        <Setter Property="Shell.DisabledColor"         Value="{AppThemeBinding Light={StaticResource Water200}, Dark={StaticResource N600}}" />
+        <Setter Property="Shell.UnselectedColor"       Value="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource N500}}" />
+        <Setter Property="Shell.NavBarHasShadow"       Value="False" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource White},    Dark={StaticResource Ocean800}}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+        <Setter Property="Shell.TabBarTitleColor"      Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource N400},     Dark={StaticResource N600}}" />
+    </Style>
+
+    <Style TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Ocean800}}" />
+        <Setter Property="BarTextColor"       Value="{StaticResource White}" />
+    </Style>
+
+    <!-- ═══ CONTROLS ═══ -->
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="TextColor"       Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontFamily"      Value="OpenSansRegular" />
+        <Setter Property="FontSize"        Value="14" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource N300}, Dark={StaticResource N600}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="TextColor"            Value="{StaticResource White}" />
+        <Setter Property="BackgroundColor"      Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+        <Setter Property="FontFamily"           Value="OpenSansSemibold" />
+        <Setter Property="FontSize"             Value="15" />
+        <Setter Property="CornerRadius"         Value="14" />
+        <Setter Property="Padding"              Value="16,12" />
+        <Setter Property="MinimumHeightRequest" Value="48" />
+        <Setter Property="CharacterSpacing"     Value="0.3" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Opacity" Value="0.78" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor"       Value="{AppThemeBinding Light={StaticResource N300}, Dark={StaticResource N600}}" />
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource N100}, Dark={StaticResource N700}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Entry">
+        <Setter Property="TextColor"        Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}" />
+        <Setter Property="BackgroundColor"  Value="Transparent" />
+        <Setter Property="FontFamily"       Value="OpenSansRegular" />
+        <Setter Property="FontSize"         Value="15" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource N300}, Dark={StaticResource N500}}" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+    </Style>
+
+    <Style TargetType="Editor">
+        <Setter Property="TextColor"        Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}" />
+        <Setter Property="BackgroundColor"  Value="Transparent" />
+        <Setter Property="FontFamily"       Value="OpenSansRegular" />
+        <Setter Property="FontSize"         Value="14" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource N300}, Dark={StaticResource N500}}" />
+    </Style>
+
+    <Style TargetType="Frame">
+        <Setter Property="HasShadow"       Value="False" />
+        <Setter Property="BorderColor"     Value="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}" />
+        <Setter Property="CornerRadius"    Value="16" />
+        <!-- Telegram: white cards on grey page -->
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}" />
+    </Style>
+
+    <Style TargetType="Border">
+        <Setter Property="Stroke"          Value="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}" />
+        <Setter Property="StrokeShape"     Value="Rectangle" />
+        <Setter Property="StrokeThickness" Value="1" />
+    </Style>
+
+    <Style TargetType="BoxView">
+        <Setter Property="Color" Value="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}" />
+    </Style>
+
+    <Style TargetType="SearchBar">
+        <Setter Property="TextColor"        Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource N400}" />
+        <Setter Property="BackgroundColor"  Value="Transparent" />
+        <Setter Property="FontFamily"       Value="OpenSansRegular" />
+        <Setter Property="FontSize"         Value="14" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+    </Style>
+
+    <Style TargetType="SearchHandler">
+        <Setter Property="TextColor"        Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water100}}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource N400}" />
+        <Setter Property="BackgroundColor"  Value="Transparent" />
+        <Setter Property="FontFamily"       Value="OpenSansRegular" />
+        <Setter Property="FontSize"         Value="14" />
+    </Style>
+
+    <Style TargetType="RefreshView">
+        <Setter Property="RefreshColor" Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+    </Style>
+
+    <Style TargetType="Switch">
+        <Setter Property="OnColor"    Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Teal300}}" />
+        <Setter Property="ThumbColor" Value="{StaticResource White}" />
+    </Style>
+
+    <Style TargetType="SwipeItem">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}" />
+    </Style>
+
+    <!-- ═══ TYPOGRAPHY ═══ -->
+    <Style x:Key="LargeLabel" TargetType="Label">
+        <Setter Property="FontSize"   Value="26" />
+        <Setter Property="FontFamily" Value="OpenSansSemibold" />
+        <Setter Property="TextColor"  Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water50}}" />
+    </Style>
+    <Style x:Key="MediumLabel" TargetType="Label">
+        <Setter Property="FontSize"   Value="17" />
+        <Setter Property="FontFamily" Value="OpenSansSemibold" />
+        <Setter Property="TextColor"  Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water50}}" />
+    </Style>
+    <Style x:Key="SmallLabel" TargetType="Label">
+        <Setter Property="FontSize"  Value="12" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource N400}}" />
+    </Style>
+    <Style x:Key="TinyLabel" TargetType="Label">
+        <Setter Property="FontSize"  Value="11" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextTertiary}, Dark={StaticResource N500}}" />
+    </Style>
+    <Style x:Key="OverlineLabel" TargetType="Label">
+        <Setter Property="FontSize"         Value="11" />
+        <Setter Property="FontFamily"       Value="OpenSansSemibold" />
+        <Setter Property="CharacterSpacing" Value="1.2" />
+        <Setter Property="TextColor"        Value="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource N400}}" />
+    </Style>
+    <Style x:Key="SectionLabel" TargetType="Label">
+        <Setter Property="FontSize"         Value="11" />
+        <Setter Property="FontFamily"       Value="OpenSansSemibold" />
+        <Setter Property="CharacterSpacing" Value="1.2" />
+        <Setter Property="TextColor"        Value="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource N400}}" />
+        <Setter Property="Margin"           Value="0,16,0,6" />
+    </Style>
+
+    <!-- ═══ CARDS ═══ -->
+    <Style x:Key="WaterCard" TargetType="Frame">
+        <Setter Property="HasShadow"       Value="False" />
+        <Setter Property="CornerRadius"    Value="16" />
+        <Setter Property="Padding"         Value="16" />
+        <Setter Property="Margin"          Value="0,5" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White},   Dark={StaticResource Ocean800}}" />
+        <Setter Property="BorderColor"     Value="{AppThemeBinding Light=#E8EDF2,                 Dark={StaticResource Ocean700}}" />
+    </Style>
+
+    <!-- ═══ BUTTONS ═══ -->
+    <Style x:Key="BtnOcean" TargetType="Button">
+        <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+        <Setter Property="TextColor"        Value="{StaticResource White}" />
+        <Setter Property="FontFamily"       Value="OpenSansSemibold" />
+        <Setter Property="CornerRadius"     Value="14" />
+        <Setter Property="HeightRequest"    Value="52" />
+        <Setter Property="CharacterSpacing" Value="0.3" />
+    </Style>
+    <Style x:Key="BtnTeal" TargetType="Button">
+        <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light={StaticResource Teal400}, Dark={StaticResource Teal300}}" />
+        <Setter Property="TextColor"        Value="{StaticResource White}" />
+        <Setter Property="FontFamily"       Value="OpenSansSemibold" />
+        <Setter Property="CornerRadius"     Value="14" />
+        <Setter Property="HeightRequest"    Value="52" />
+        <Setter Property="CharacterSpacing" Value="0.3" />
+    </Style>
+    <Style x:Key="BtnOutline" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor"       Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+        <Setter Property="BorderColor"     Value="{AppThemeBinding Light={StaticResource TeleBlue}, Dark={StaticResource Water300}}" />
+        <Setter Property="BorderWidth"     Value="1.5" />
+        <Setter Property="FontFamily"      Value="OpenSansSemibold" />
+        <Setter Property="CornerRadius"    Value="14" />
+        <Setter Property="HeightRequest"   Value="52" />
+    </Style>
+    <Style x:Key="BtnDanger" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Danger500}, Dark={StaticResource Danger500}}" />
+        <Setter Property="TextColor"       Value="{StaticResource White}" />
+        <Setter Property="FontFamily"      Value="OpenSansSemibold" />
+        <Setter Property="CornerRadius"    Value="14" />
+        <Setter Property="HeightRequest"   Value="52" />
+    </Style>
+
+    <!-- ═══ INPUT ═══ -->
+    <Style x:Key="WaterInput" TargetType="Frame">
+        <Setter Property="HasShadow"       Value="False" />
+        <Setter Property="CornerRadius"    Value="14" />
+        <Setter Property="Padding"         Value="12,0" />
+        <Setter Property="HeightRequest"   Value="52" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White},   Dark={StaticResource Ocean700}}" />
+        <Setter Property="BorderColor"     Value="{AppThemeBinding Light=#D0DCE8,                 Dark={StaticResource Ocean600}}" />
+    </Style>
+
+    <!-- ═══ MISC ═══ -->
+    <Style x:Key="WaterDivider" TargetType="BoxView">
+        <Setter Property="HeightRequest" Value="1" />
+        <Setter Property="Color"         Value="{AppThemeBinding Light=#E8EDF2, Dark={StaticResource Ocean700}}" />
+        <Setter Property="Margin"        Value="0,8" />
+    </Style>
+
+    <Style x:Key="iconBtnContainer" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource TeleBlueLight}, Dark={StaticResource Ocean700}}" />
+        <Setter Property="HeightRequest"   Value="44" />
+        <Setter Property="WidthRequest"    Value="44" />
+        <Setter Property="StrokeShape"     Value="RoundRectangle 12" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="Padding"         Value="4" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <!-- ═══ LEGACY ALIASES ═══ -->
+    <Style x:Key="Card"         BasedOn="{StaticResource WaterCard}"    TargetType="Frame" />
+    <Style x:Key="BtnPrimary"   BasedOn="{StaticResource BtnOcean}"     TargetType="Button" />
+    <Style x:Key="BtnSecondary" BasedOn="{StaticResource BtnOutline}"   TargetType="Button" />
+    <Style x:Key="InputFrame"   BasedOn="{StaticResource WaterInput}"   TargetType="Frame" />
+    <Style x:Key="Divider"      BasedOn="{StaticResource WaterDivider}" TargetType="BoxView" />
+
+    <!-- ═══ CUSTOMER DETAIL PAGE ALIASES ═══ -->
+    <Style x:Key="CardView"        BasedOn="{StaticResource WaterCard}"  TargetType="Frame" />
+    <Style x:Key="PrimaryButton"   BasedOn="{StaticResource BtnOcean}"   TargetType="Button" />
+    <Style x:Key="SecondaryButton" BasedOn="{StaticResource BtnOutline}" TargetType="Button" />
+
+    <Style x:Key="HeaderLabel" TargetType="Label">
+        <Setter Property="FontSize"         Value="13" />
+        <Setter Property="FontFamily"       Value="OpenSansSemibold" />
+        <Setter Property="CharacterSpacing" Value="1.2" />
+        <Setter Property="TextColor"        Value="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource N400}}" />
+        <Setter Property="Margin"           Value="0,14,0,8" />
+    </Style>
+
+    <Style x:Key="FieldTitleLabel" TargetType="Label">
+        <Setter Property="FontSize"   Value="11" />
+        <Setter Property="FontFamily" Value="OpenSansSemibold" />
+        <Setter Property="TextColor"  Value="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource N400}}" />
+    </Style>
+
+    <Style x:Key="FieldValueLabel" TargetType="Label">
+        <Setter Property="FontSize"   Value="15" />
+        <Setter Property="FontFamily" Value="OpenSansSemibold" />
+        <Setter Property="TextColor"  Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource Water50}}" />
+    </Style>
+
+</ResourceDictionary>

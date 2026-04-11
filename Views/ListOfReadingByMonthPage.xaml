@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:SampleMauiMvvmApp.Models"
+             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
+             x:Class="SampleMauiMvvmApp.Views.ListOfReadingByMonthPage"
+             Title="{Binding MyTitle}"
+             x:DataType="viewmodel:MonthViewModel"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Foam}, Dark={StaticResource Ocean900}}">
+
+    <Grid RowDefinitions="*,Auto">
+        <RefreshView Grid.Row="0" IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding listReadings}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Reading">
+                        <Frame Margin="12,5" Padding="0" CornerRadius="18" HasShadow="False"
+                               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}"
+                               BorderColor="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource Ocean700}}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonthViewModel}}, Path=GoToCustomerDetailsCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="5,58,*,*" Padding="0,12,14,12">
+                                <BoxView Grid.Column="0" CornerRadius="5,0,0,5"
+                                         Color="{AppThemeBinding Light={StaticResource Teal400}, Dark={StaticResource Teal300}}"
+                                         IsVisible="{Binding ReadingSync}" />
+                                <BoxView Grid.Column="0" CornerRadius="5,0,0,5"
+                                         Color="{AppThemeBinding Light={StaticResource Ocean500}, Dark={StaticResource Water300}}"
+                                         IsVisible="{Binding ReadingTaken}" />
+
+                                <Border Grid.Column="1" Margin="8,0"
+                                        StrokeShape="RoundRectangle 22" StrokeThickness="0"
+                                        HeightRequest="44" WidthRequest="44"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Teal100}, Dark={StaticResource Ocean700}}"
+                                        VerticalOptions="Center" HorizontalOptions="Center"
+                                        IsVisible="{Binding ReadingSync}">
+                                    <Label Text="✓" FontSize="18" FontFamily="OpenSansSemibold"
+                                           TextColor="{AppThemeBinding Light={StaticResource Teal500}, Dark={StaticResource Teal300}}"
+                                           HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <Border Grid.Column="1" Margin="8,0"
+                                        StrokeShape="RoundRectangle 22" StrokeThickness="0"
+                                        HeightRequest="44" WidthRequest="44"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Water50}, Dark={StaticResource Ocean700}}"
+                                        VerticalOptions="Center" HorizontalOptions="Center"
+                                        IsVisible="{Binding ReadingTaken}">
+                                    <Label Text="💧" FontSize="18"
+                                           HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+
+                                <VerticalStackLayout Grid.Column="2" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="Customer" Style="{StaticResource OverlineLabel}" />
+                                    <Label Text="{Binding CUSTOMER_NUMBER}" FontSize="15" FontFamily="OpenSansSemibold"
+                                           TextColor="{AppThemeBinding Light={StaticResource Ocean800}, Dark={StaticResource Water50}}" />
+                                    <Label Text="{Binding CUSTOMER_NAME}" Style="{StaticResource SmallLabel}" />
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="3" Spacing="2"
+                                                     VerticalOptions="Center" HorizontalOptions="End">
+                                    <Label Text="Reading" Style="{StaticResource OverlineLabel}" HorizontalOptions="End" />
+                                    <Label Text="{Binding CURRENT_READING}"
+                                           Style="{StaticResource LargeLabel}"
+                                           TextColor="{AppThemeBinding Light={StaticResource Water300}, Dark={StaticResource Ripple}}"
+                                           HorizontalOptions="End" />
+                                    <Label Text="{Binding AREA}" Style="{StaticResource TinyLabel}"
+                                           HorizontalOptions="End" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" Padding="12,8,12,20" ColumnSpacing="10"
+              BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Ocean800}}">
+            <BoxView Grid.ColumnSpan="2" HeightRequest="1" VerticalOptions="Start"
+                     Color="{AppThemeBinding Light={StaticResource Water100}, Dark={StaticResource Ocean700}}" />
+            <Button Grid.Column="0" Text="Go Back" Style="{StaticResource BtnOutline}"
+                    HeightRequest="48" Command="{Binding GoBackCommand}" />
+            <Button Grid.Column="1" Text="Sync Now" Style="{StaticResource BtnTeal}"
+                    HeightRequest="48" Command="{Binding SyncByMonthIdCommand}" />
+        </Grid>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                           HorizontalOptions="Center" VerticalOptions="Center" Grid.RowSpan="2" />
+    </Grid>
+</ContentPage>
