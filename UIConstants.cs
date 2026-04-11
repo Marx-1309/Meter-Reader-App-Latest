@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleMauiMvvmApp
+namespace MeterReaderApp
 {
     public static class UIConstants
     {

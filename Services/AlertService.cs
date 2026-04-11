@@ -1,6 +1,6 @@
 using CommunityToolkit.Maui.Core;
 
-namespace SampleMauiMvvmApp.Services
+namespace MeterReaderApp.Services
 {
     /// <summary>
     /// Safe alert helpers. All methods silently swallow exceptions so they

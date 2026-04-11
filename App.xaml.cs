@@ -1,6 +1,6 @@
-using SampleMauiMvvmApp.Services;
+using MeterReaderApp.Services;
 
-namespace SampleMauiMvvmApp;
+namespace MeterReaderApp;
 
 public partial class App : Application
 {

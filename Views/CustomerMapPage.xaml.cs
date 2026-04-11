@@ -1,8 +1,8 @@
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
-using SampleMauiMvvmApp.ViewModels;
+using MeterReaderApp.ViewModels;
 
-namespace SampleMauiMvvmApp.Views
+namespace MeterReaderApp.Views
 {
     [QueryProperty(nameof(CustomerNumber), "CustomerNumber")]
     public partial class CustomerMapPage : ContentPage

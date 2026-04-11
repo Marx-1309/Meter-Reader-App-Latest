@@ -1,7 +1,7 @@
-using SampleMauiMvvmApp.Services;
-using SampleMauiMvvmApp.ViewModels;
+using MeterReaderApp.Services;
+using MeterReaderApp.ViewModels;
 
-namespace SampleMauiMvvmApp.Views.SecurityPages;
+namespace MeterReaderApp.Views.SecurityPages;
 
 public partial class LoginPage : ContentPage
 {

@@ -1,6 +1,6 @@
-﻿using SampleMauiMvvmApp.Interfaces;
+﻿using MeterReaderApp.Interfaces;
 
-namespace SampleMauiMvvmApp.Services
+namespace MeterReaderApp.Services
 {
     public class ReadingService : BaseService, IReadingService
     {
@@ -34,12 +34,12 @@ namespace SampleMauiMvvmApp.Services
             dbContext.Database = new SQLiteAsyncConnection(
                 DatabaseConstants.DatabasePath, DatabaseConstants.Flags);
             await dbContext.Database.CreateTablesAsync(CreateFlags.None,
-                typeof(SampleMauiMvvmApp.Models.Reading),
-                typeof(SampleMauiMvvmApp.Models.Month),
-                typeof(SampleMauiMvvmApp.Models.ReadingExport),
-                typeof(SampleMauiMvvmApp.Models.ReadingMedia),
-                typeof(SampleMauiMvvmApp.Models.Customer),
-                typeof(SampleMauiMvvmApp.Models.Notes));
+                typeof(MeterReaderApp.Models.Reading),
+                typeof(MeterReaderApp.Models.Month),
+                typeof(MeterReaderApp.Models.ReadingExport),
+                typeof(MeterReaderApp.Models.ReadingMedia),
+                typeof(MeterReaderApp.Models.Customer),
+                typeof(MeterReaderApp.Models.Notes));
         }
 
         public async Task<List<Reading>> GetReadingsByCustomerId(string customerId)
@@ -699,7 +699,7 @@ namespace SampleMauiMvvmApp.Services
                 {
                     var existingIds = readingsCount.Select(r => r.WaterReadingExportDataID).ToList();
 
-                    var response = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.GetWaterReadingExportDataID);
+                    var response = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.GetWaterReadingExportDataID);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -724,7 +724,7 @@ namespace SampleMauiMvvmApp.Services
                 }
                 else
                 {
-                    var response = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.ReadingExport);
+                    var response = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.ReadingExport);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -764,7 +764,7 @@ namespace SampleMauiMvvmApp.Services
                     // Retrieve all the IDs of the existing ReadingExport items in the SQLite database
                     var existingIds = readingsCount.Select(r => r.WaterReadingExportID).ToList();
 
-                    var response = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.ReadingExport);
+                    var response = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.ReadingExport);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -794,7 +794,7 @@ namespace SampleMauiMvvmApp.Services
                 }
                 else
                 {
-                    var response = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.ReadingExport);
+                    var response = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.ReadingExport);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -960,7 +960,7 @@ namespace SampleMauiMvvmApp.Services
                     {
                         string userSite = Preferences.Default.Get("userSite", "");
 
-                        string baseUrl = SampleMauiMvvmApp.API_URL_s.Constants.GetReading;
+                        string baseUrl = MeterReaderApp.API_URL_s.Constants.GetReading;
                         string requestUrl = $"{baseUrl}?billingSite={Uri.EscapeDataString(userSite)}";
                         var response = await _httpClient.GetAsync(requestUrl);
 
@@ -1153,7 +1153,7 @@ namespace SampleMauiMvvmApp.Services
             {
                 await EnsureDbAsync();
                 string userSite = Preferences.Default.Get("userSite", "");
-                string baseUrl = SampleMauiMvvmApp.API_URL_s.Constants.GetReading; // e.g., "https://localhost:7231/api/Reading"
+                string baseUrl = MeterReaderApp.API_URL_s.Constants.GetReading; // e.g., "https://localhost:7231/api/Reading"
                 string requestUrl = $"{baseUrl}?billingSite={Uri.EscapeDataString(userSite)}";
 
                 var responseSql = await _httpClient.GetAsync(requestUrl);

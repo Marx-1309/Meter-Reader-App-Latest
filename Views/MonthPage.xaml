@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
-             xmlns:model="clr-namespace:SampleMauiMvvmApp.Models"
-             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
-             x:Class="SampleMauiMvvmApp.Views.MonthPage"
+             xmlns:model="clr-namespace:MeterReaderApp.Models"
+             xmlns:viewmodel="clr-namespace:MeterReaderApp.ViewModels"
+             x:Class="MeterReaderApp.Views.MonthPage"
              x:DataType="viewmodel:MonthViewModel"
              Title="Sync Period"
              BackgroundColor="{AppThemeBinding Light={StaticResource Foam}, Dark={StaticResource Ocean900}}">

@@ -1,10 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SampleMauiMvvmApp.Models;
-using SampleMauiMvvmApp.Services;
+using MeterReaderApp.Models;
+using MeterReaderApp.Services;
 using System.Collections.ObjectModel;
 
-namespace SampleMauiMvvmApp.ViewModels
+namespace MeterReaderApp.ViewModels
 {
     public partial class CustomerMapViewModel : BaseViewModel
     {

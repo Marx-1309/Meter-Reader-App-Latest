@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.ViewModels
+﻿namespace MeterReaderApp.ViewModels
 {
     public partial class LogoutViewModel : BaseViewModel
     {

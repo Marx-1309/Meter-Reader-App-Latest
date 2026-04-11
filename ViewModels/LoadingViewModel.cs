@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 
-//using SampleMauiMvvmApp.Helpers;
-using SampleMauiMvvmApp.Models;
-using SampleMauiMvvmApp.Services;
-using SampleMauiMvvmApp.Views;
-using SampleMauiMvvmApp.Views.SecurityPages;
+//using MeterReaderApp.Helpers;
+using MeterReaderApp.Models;
+using MeterReaderApp.Services;
+using MeterReaderApp.Views;
+using MeterReaderApp.Views.SecurityPages;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,7 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleMauiMvvmApp.ViewModels
+namespace MeterReaderApp.ViewModels
 {
     [QueryProperty("loggedin", "loggedin")]
     public partial class LoadingViewModel : BaseViewModel

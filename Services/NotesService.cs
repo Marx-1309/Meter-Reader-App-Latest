@@ -1,6 +1,6 @@
-﻿using SampleMauiMvvmApp.Interfaces;
+﻿using MeterReaderApp.Interfaces;
 
-namespace SampleMauiMvvmApp.Services
+namespace MeterReaderApp.Services
 {
     public class NotesService : INotesService
     {

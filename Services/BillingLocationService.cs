@@ -1,4 +1,4 @@
-namespace SampleMauiMvvmApp.Services
+namespace MeterReaderApp.Services
 {
     /// <summary>
     /// Syncs BS_BillingLocation from the server API into the local SQLite table

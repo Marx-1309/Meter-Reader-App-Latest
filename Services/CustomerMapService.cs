@@ -1,4 +1,4 @@
-namespace SampleMauiMvvmApp.Services
+namespace MeterReaderApp.Services
 {
     public partial class CustomerMapService : BaseService
     {
@@ -17,8 +17,8 @@ namespace SampleMauiMvvmApp.Services
             _dbContext.Database = new SQLiteAsyncConnection(
                 DatabaseConstants.DatabasePath, DatabaseConstants.Flags);
             await _dbContext.Database.CreateTablesAsync(CreateFlags.None,
-                typeof(SampleMauiMvvmApp.Models.Reading),
-                typeof(SampleMauiMvvmApp.Models.Customer));
+                typeof(MeterReaderApp.Models.Reading),
+                typeof(MeterReaderApp.Models.Customer));
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-namespace SampleMauiMvvmApp.Views;
+namespace MeterReaderApp.Views;
 
 public partial class ExceptionReadingListPage : ContentPage
 {

@@ -1,6 +1,6 @@
-using SampleMauiMvvmApp.ViewModels;
+using MeterReaderApp.ViewModels;
 
-namespace SampleMauiMvvmApp.Views;
+namespace MeterReaderApp.Views;
 
 [QueryProperty("NoteDetails", "NoteDetails")]
 public partial class NotesDetailsPage : ContentPage

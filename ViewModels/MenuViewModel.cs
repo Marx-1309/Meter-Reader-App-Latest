@@ -1,13 +1,13 @@
 using CommunityToolkit.Maui.Core;
-using SampleMauiMvvmApp.Services;
+using MeterReaderApp.Services;
 
-namespace SampleMauiMvvmApp.ViewModels
+namespace MeterReaderApp.ViewModels
 {
     public partial class MenuViewModel : BaseViewModel
     {
         private readonly ReadingExportService _readingExportService;
 
-        public ObservableCollection<SampleMauiMvvmApp.Models.Menu> Menus { get; }
+        public ObservableCollection<MeterReaderApp.Models.Menu> Menus { get; }
 
         // Header observables — loaded on appear
         [ObservableProperty] private string greeting   = "Hello 👋";
@@ -19,7 +19,7 @@ namespace SampleMauiMvvmApp.ViewModels
             _readingExportService = readingExportService
                 ?? throw new ArgumentNullException(nameof(readingExportService));
 
-            Menus = new ObservableCollection<SampleMauiMvvmApp.Models.Menu>
+            Menus = new ObservableCollection<MeterReaderApp.Models.Menu>
             {
                 new() { Name = "Analytics Dashboard", Image = "analytics_icon.png",
                         Url = "AnalyticsPage",            IsActive = true  },

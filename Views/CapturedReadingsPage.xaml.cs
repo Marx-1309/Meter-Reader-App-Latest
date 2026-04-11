@@ -1,6 +1,6 @@
-using SampleMauiMvvmApp.ViewModels;
+using MeterReaderApp.ViewModels;
 
-namespace SampleMauiMvvmApp.Views;
+namespace MeterReaderApp.Views;
 
 public partial class CapturedReadingsPage : ContentPage
 {

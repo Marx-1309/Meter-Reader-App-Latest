@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace SampleMauiMvvmApp
+namespace MeterReaderApp
 {
     public class Program
     {

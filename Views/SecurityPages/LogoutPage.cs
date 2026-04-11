@@ -1,6 +1,6 @@
-using SampleMauiMvvmApp.ViewModels;
+using MeterReaderApp.ViewModels;
 
-namespace SampleMauiMvvmApp;
+namespace MeterReaderApp;
 
 public class LogoutPage : ContentPage
 {

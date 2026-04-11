@@ -1,5 +1,5 @@
 using Plugin.LocalNotification;
-namespace SampleMauiMvvmApp;
+namespace MeterReaderApp;
 
 public static class MauiProgram
 {
@@ -10,8 +10,8 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseSkiaSharp()
             .UseMauiCommunityToolkit()
-            .UseMauiMaps()
-            .UseLocalNotification()
+            //.UseMauiMaps()
+            //.UseLocalNotification()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf",  "OpenSansRegular");

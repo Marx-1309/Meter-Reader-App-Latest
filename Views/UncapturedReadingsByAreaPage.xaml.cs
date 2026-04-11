@@ -1,6 +1,6 @@
-using SampleMauiMvvmApp.Models;
+using MeterReaderApp.Models;
 
-namespace SampleMauiMvvmApp.Views;
+namespace MeterReaderApp.Views;
 
 [QueryProperty(nameof(Readings), "Readings")]
 public partial class UncapturedReadingsByAreaPage : ContentPage

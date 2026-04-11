@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.Models
+﻿namespace MeterReaderApp.Models
 {
     public class Customer
     {

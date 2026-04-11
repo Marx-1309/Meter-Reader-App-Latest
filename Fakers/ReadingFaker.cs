@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.Fakers
+﻿namespace MeterReaderApp.Fakers
 {
     public class ReadingFaker : Faker<Reading>
     {

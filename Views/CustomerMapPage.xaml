@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
-             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
-             x:Class="SampleMauiMvvmApp.Views.CustomerMapPage"
+             xmlns:viewmodel="clr-namespace:MeterReaderApp.ViewModels"
+             x:Class="MeterReaderApp.Views.CustomerMapPage"
              x:DataType="viewmodel:CustomerMapViewModel"
              NavigationPage.HasNavigationBar="False"
              Shell.NavBarIsVisible="False">

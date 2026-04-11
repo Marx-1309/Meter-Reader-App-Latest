@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.Mappings.Dto_s
+﻿namespace MeterReaderApp.Mappings.Dto_s
 {
     public class ReadingDto
     {

@@ -1,6 +1,6 @@
-﻿using SampleMauiMvvmApp.Interfaces;
+﻿using MeterReaderApp.Interfaces;
 
-namespace SampleMauiMvvmApp.Services
+namespace MeterReaderApp.Services
 {
     // https://www.youtube.com/watch?v=XFP8Np-uRWc&ab_channel=JamesMontemagno
     public class CustomerService : BaseService, ICustomerService
@@ -80,7 +80,7 @@ namespace SampleMauiMvvmApp.Services
 
         //        if (CustList.Count == 0)
         //        {
-        //            var response = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.GetCustomer);
+        //            var response = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.GetCustomer);
 
         //            if (response.IsSuccessStatusCode)
         //            {
@@ -130,9 +130,9 @@ namespace SampleMauiMvvmApp.Services
                 {
                     string userSite = Preferences.Default.Get("userSite", "");
                     // 1. Retrieve the list of customers & readings from SQL Server and compare to get a list of customers that have existing readings in SQL..
-                    var response = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.GetCustomer);
+                    var response = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.GetCustomer);
 
-                    string baseUrl = SampleMauiMvvmApp.API_URL_s.Constants.GetReading; // e.g., "https://localhost:7231/api/Reading"
+                    string baseUrl = MeterReaderApp.API_URL_s.Constants.GetReading; // e.g., "https://localhost:7231/api/Reading"
                     string requestUrl = $"{baseUrl}?billingSite={Uri.EscapeDataString(userSite)}";
 
                     var response2 = await _httpClient.GetAsync(requestUrl);

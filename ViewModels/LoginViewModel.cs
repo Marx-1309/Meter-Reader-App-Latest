@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.ViewModels
+﻿namespace MeterReaderApp.ViewModels
 {
     [QueryProperty(nameof(IsFirstTime), nameof(IsFirstTime))]
     public partial class LoginViewModel : BaseViewModel

@@ -2,7 +2,7 @@
 using Microsoft.Maui.Networking;
 using System.Text.RegularExpressions;
 
-namespace SampleMauiMvvmApp.ViewModels
+namespace MeterReaderApp.ViewModels
 {
     [QueryProperty("Customer", "Customer")]
     [QueryProperty("Reading", "Reading")]

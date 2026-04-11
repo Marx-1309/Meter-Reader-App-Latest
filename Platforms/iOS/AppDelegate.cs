@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace SampleMauiMvvmApp
+namespace MeterReaderApp
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

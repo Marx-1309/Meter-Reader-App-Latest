@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace SampleMauiMvvmApp.Models
+namespace MeterReaderApp.Models
 {
     [Table("Month")]
     public class Month

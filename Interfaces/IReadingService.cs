@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.Interfaces
+﻿namespace MeterReaderApp.Interfaces
 {
     public interface IReadingService
     {

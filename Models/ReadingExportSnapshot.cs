@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.Models
+﻿namespace MeterReaderApp.Models
 {
     [Table("ReadingExportSnapshot")]
     public class ReadingExportSnapshot

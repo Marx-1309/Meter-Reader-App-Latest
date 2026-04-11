@@ -1,7 +1,7 @@
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using Microsoft.Maui.Graphics;
-﻿namespace SampleMauiMvvmApp.ViewModels
+﻿namespace MeterReaderApp.ViewModels
 {
     public partial class MonthViewModel : BaseViewModel
     {
@@ -154,7 +154,7 @@ using Microsoft.Maui.Graphics;
             {
                 syncedReadings = await readingService.SyncReadingsByMonthIdAsync(CMonth);
                 // Count images synced (exposed as static by ReadingService)
-                syncedImages = SampleMauiMvvmApp.Services.ReadingService.allImageItemsByCount;
+                syncedImages = MeterReaderApp.Services.ReadingService.allImageItemsByCount;
 
                 message = readingService.StatusMessage;
 

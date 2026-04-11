@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.ModelWrappers
+﻿namespace MeterReaderApp.ModelWrappers
 {
     public partial class CustomerWrapper : ObservableObject
     {

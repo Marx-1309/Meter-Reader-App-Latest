@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace SampleMauiMvvmApp;
+namespace MeterReaderApp;
 
 #if DEBUG                                   // connect to local service on the
 [Application(UsesCleartextTraffic = true)]  // emulator's host for debugging,

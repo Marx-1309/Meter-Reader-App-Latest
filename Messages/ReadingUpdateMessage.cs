@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.Messages
+﻿namespace MeterReaderApp.Messages
 {
     public class ReadingUpdateMessage : ValueChangedMessage<Reading>
     {

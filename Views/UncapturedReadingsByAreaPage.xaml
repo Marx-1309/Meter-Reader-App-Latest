@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:model="clr-namespace:SampleMauiMvvmApp.Models"
-             xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
-             xmlns:searchHandlers="clr-namespace:SampleMauiMvvmApp.SearchHandlers"
-             x:Class="SampleMauiMvvmApp.Views.UncapturedReadingsByAreaPage"
+             xmlns:model="clr-namespace:MeterReaderApp.Models"
+             xmlns:viewmodel="clr-namespace:MeterReaderApp.ViewModels"
+             xmlns:searchHandlers="clr-namespace:MeterReaderApp.SearchHandlers"
+             x:Class="MeterReaderApp.Views.UncapturedReadingsByAreaPage"
              Title="{Binding AreaTitle}"
              x:DataType="viewmodel:ReadingViewModel"
              BackgroundColor="{AppThemeBinding Light={StaticResource Foam}, Dark={StaticResource Ocean900}}">

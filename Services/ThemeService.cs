@@ -1,4 +1,4 @@
-namespace SampleMauiMvvmApp.Services;
+namespace MeterReaderApp.Services;
 
 /// <summary>Persist + apply Light/Dark theme across app restarts.</summary>
 public static class ThemeService

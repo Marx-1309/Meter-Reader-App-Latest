@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.SearchHandlers
+﻿namespace MeterReaderApp.SearchHandlers
 {
     public partial class CustomerSearchHandler : SearchHandler
     {

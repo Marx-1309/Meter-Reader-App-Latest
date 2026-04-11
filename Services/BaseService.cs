@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.Services
+﻿namespace MeterReaderApp.Services
 {
     public class BaseService : ObservableObject
     {
@@ -40,15 +40,15 @@
 
             var migrationResult = await dbContext.Database.CreateTablesAsync(CreateFlags.None
 
-                , typeof(SampleMauiMvvmApp.Models.Reading)
-                , typeof(SampleMauiMvvmApp.Models.Month)
-                , typeof(SampleMauiMvvmApp.Models.ReadingExport)
-                , typeof(SampleMauiMvvmApp.Models.BillingLocation)
-                , typeof(SampleMauiMvvmApp.Models.RM00303)
-                , typeof(SampleMauiMvvmApp.Models.LoginHistory)
-                , typeof(SampleMauiMvvmApp.Models.ReadingMedia)
-                , typeof(SampleMauiMvvmApp.Models.Customer)
-                , typeof(SampleMauiMvvmApp.Models.Notes));
+                , typeof(MeterReaderApp.Models.Reading)
+                , typeof(MeterReaderApp.Models.Month)
+                , typeof(MeterReaderApp.Models.ReadingExport)
+                , typeof(MeterReaderApp.Models.BillingLocation)
+                , typeof(MeterReaderApp.Models.RM00303)
+                , typeof(MeterReaderApp.Models.LoginHistory)
+                , typeof(MeterReaderApp.Models.ReadingMedia)
+                , typeof(MeterReaderApp.Models.Customer)
+                , typeof(MeterReaderApp.Models.Notes));
             ;
 
             if (migrationResult.Results != null && migrationResult.Results.Count > 0)

@@ -1,7 +1,7 @@
-using SampleMauiMvvmApp.Interfaces;
-using SampleMauiMvvmApp.Services;
+using MeterReaderApp.Interfaces;
+using MeterReaderApp.Services;
 
-namespace SampleMauiMvvmApp.ViewModels
+namespace MeterReaderApp.ViewModels
 {
     [QueryProperty("Area", "Area")]
     [QueryProperty("Refresh", "Refresh")]

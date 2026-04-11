@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SampleMauiMvvmApp.Models
+namespace MeterReaderApp.Models
 {
     [System.ComponentModel.DataAnnotations.Schema.Table("UserInfo")]
     public class UserInfo

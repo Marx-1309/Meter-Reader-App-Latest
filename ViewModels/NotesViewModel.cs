@@ -1,4 +1,4 @@
-namespace SampleMauiMvvmApp.ViewModels
+namespace MeterReaderApp.ViewModels
 {
     [QueryProperty(nameof(NoteDetails), "NoteDetails")]
     public partial class NotesViewModel : ObservableObject

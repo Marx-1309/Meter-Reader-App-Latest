@@ -1,7 +1,7 @@
-﻿using SampleMauiMvvmApp.Mappings.Dto_s;
+﻿using MeterReaderApp.Mappings.Dto_s;
 using System.Text.Json.Serialization;
 
-namespace SampleMauiMvvmApp.Mappings.Dto_s
+namespace MeterReaderApp.Mappings.Dto_s
 {
     public class CustomerDto
     {

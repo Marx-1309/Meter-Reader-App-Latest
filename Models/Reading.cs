@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SampleMauiMvvmApp.Models
+namespace MeterReaderApp.Models
 {
     public class Reading
     {

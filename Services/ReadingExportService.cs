@@ -1,6 +1,6 @@
 ﻿using System.Net.NetworkInformation;
 
-namespace SampleMauiMvvmApp.Services
+namespace MeterReaderApp.Services
 {
     public class ReadingExportService
     {
@@ -41,7 +41,7 @@ namespace SampleMauiMvvmApp.Services
                     return;
                 }
 
-                var responseSql = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.ReadingExport);
+                var responseSql = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.ReadingExport);
                 var exportsList = await dbContext.Database.Table<ReadingExport>().ToListAsync();
 
                 var existingIds = exportsList
@@ -74,7 +74,7 @@ namespace SampleMauiMvvmApp.Services
                     }
 
                     var customerInSqlite = await dbContext.Database.Table<Customer>().ToListAsync();
-                    var customerFromSqlServer = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.GetCustomer);
+                    var customerFromSqlServer = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.GetCustomer);
 
                     if (customerFromSqlServer.IsSuccessStatusCode)
                     {
@@ -130,9 +130,9 @@ namespace SampleMauiMvvmApp.Services
                         return;
                     }
 
-                    var responseSql1 = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.ReadingExport);
-                    var responseSql2 = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.GetCustomer);
-                    var responseSql3 = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.GetReading);
+                    var responseSql1 = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.ReadingExport);
+                    var responseSql2 = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.GetCustomer);
+                    var responseSql3 = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.GetReading);
 
                     var exportsList = await dbContext.Database.Table<ReadingExport>().ToListAsync();
                     var customerList = await dbContext.Database.Table<Customer>().ToListAsync();
@@ -342,7 +342,7 @@ namespace SampleMauiMvvmApp.Services
                     //    return null;
                     //}
                     //Get lists from APi
-                    var responseSql1 = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.ReadingExport);
+                    var responseSql1 = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.ReadingExport);
 
                     if (responseSql1.IsSuccessStatusCode)
                     {
@@ -550,7 +550,7 @@ namespace SampleMauiMvvmApp.Services
                     .Select(r => r.WaterReadingExportID)
                     .ToList();
 
-                var response = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.ReadingExport);
+                var response = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.ReadingExport);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -638,7 +638,7 @@ namespace SampleMauiMvvmApp.Services
             }
             try
             {
-                var responseSql = await _httpClient.GetAsync(SampleMauiMvvmApp.API_URL_s.Constants.GetLocation);
+                var responseSql = await _httpClient.GetAsync(MeterReaderApp.API_URL_s.Constants.GetLocation);
 
                 var locationsList = await dbContext.Database.Table<BillingLocation>().ToListAsync();
 

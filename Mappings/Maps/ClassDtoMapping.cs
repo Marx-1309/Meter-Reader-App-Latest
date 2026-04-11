@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.Mappings.Maps
+﻿namespace MeterReaderApp.Mappings.Maps
 {
     public class ClassDtoMapping : Profile
     {

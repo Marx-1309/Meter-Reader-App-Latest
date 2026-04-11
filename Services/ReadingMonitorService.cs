@@ -1,7 +1,7 @@
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.AndroidOption;
 
-namespace SampleMauiMvvmApp.Services
+namespace MeterReaderApp.Services
 {
     /// <summary>
     /// Fires a local push notification when unsynced readings reach 10% of captured.

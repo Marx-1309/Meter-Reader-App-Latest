@@ -1,4 +1,4 @@
-﻿namespace SampleMauiMvvmApp.API_URL_s
+﻿namespace MeterReaderApp.API_URL_s
 {
     public static class Constants
     {

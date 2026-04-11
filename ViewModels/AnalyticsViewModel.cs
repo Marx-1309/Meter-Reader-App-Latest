@@ -1,6 +1,6 @@
 using Microsoft.Maui.Graphics;
 
-namespace SampleMauiMvvmApp.ViewModels
+namespace MeterReaderApp.ViewModels
 {
     public partial class AnalyticsViewModel : BaseViewModel
     {

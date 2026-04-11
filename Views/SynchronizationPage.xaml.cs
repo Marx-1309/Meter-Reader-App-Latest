@@ -1,4 +1,4 @@
-namespace SampleMauiMvvmApp.Views;
+namespace MeterReaderApp.Views;
 
 [QueryProperty("Refresh", "Refresh")]
 public partial class SynchronizationPage : ContentPage
