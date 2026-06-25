@@ -308,19 +308,6 @@ namespace MeterReaderApp.ViewModels
             // Fallback — only reached when database has not yet been seeded
             return new[]
             {
-                "Omaruru Town - Extension 1",
-                "Omaruru Town - Extension 2",
-                "Omaruru Town - Extension 3",
-                "Omaruru Town - Extension 4",
-                "Omaruru Town - Extension 5",
-                "Ozondje Town - Welwitchia",
-                "Ozondje Town - Herero Location",
-                "Ozondje Town - Damara Location",
-                "Ozondje Town - Sonskyn",
-                "Ozondje Town - Hakahana",
-                "Ozondje Town - Vambo Location",
-                "Erongo Park",
-                "Wildlife Estates",
                 "Unclassified"
             };
         }

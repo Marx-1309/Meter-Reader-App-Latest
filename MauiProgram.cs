@@ -6,7 +6,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
-           builder
+        builder
             .UseMauiApp<App>()
             .UseSkiaSharp()
             .UseMauiCommunityToolkit()
@@ -22,12 +22,24 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
-        // Infrastructure
+        // ─── Infrastructure ───────────────────────────────────────────────────────
         builder.Services.AddSingleton(Connectivity.Current);
         builder.Services.AddSingleton(Geolocation.Default);
         builder.Services.AddSingleton(Map.Default);
 
-        // Services
+        // ─── IHttpClientFactory — shared, pooled connections for all services ─────
+        // One named client; base address set once here so services don't hardcode it.
+        builder.Services.AddHttpClient("MeterReaderAPI", client =>
+        {
+            client.BaseAddress = new Uri(MeterReaderApp.API_URL_s.ListOfUrl.WindhoekHome + "/");
+
+            // Tell the server we accept gzip — pairs with UseResponseCompression() on the API
+            client.DefaultRequestHeaders.AcceptEncoding.ParseAdd("gzip, br");
+
+            client.Timeout = TimeSpan.FromSeconds(60);
+        });
+
+        // ─── Services ─────────────────────────────────────────────────────────────
         builder.Services.AddTransient<BaseService>();
         builder.Services.AddSingleton<DbContext>();
         builder.Services.AddSingleton<NotesService>();
@@ -39,7 +51,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<AuthenticationService>();
         builder.Services.AddTransient<AppShell>();
 
-        // ViewModels
+        // ─── ViewModels ───────────────────────────────────────────────────────────
         builder.Services.AddSingleton<LoginViewModel>();
         builder.Services.AddSingleton<LoadingViewModel>();
         builder.Services.AddSingleton<LogoutViewModel>();
@@ -51,9 +63,9 @@ public static class MauiProgram
         builder.Services.AddTransient<CustomerMapViewModel>();
         builder.Services.AddSingleton<OnboardingViewModel>();
         builder.Services.AddTransient<AnalyticsViewModel>();
-        builder.Services.AddTransient<GalleryViewModel>();    
+        builder.Services.AddTransient<GalleryViewModel>();
 
-        // Pages
+        // ─── Pages ────────────────────────────────────────────────────────────────
         builder.Services.AddSingleton<OnboardingPage>();
         builder.Services.AddSingleton<LoadingPage>();
         builder.Services.AddSingleton<LoginPage>();
@@ -72,7 +84,7 @@ public static class MauiProgram
         builder.Services.AddTransient<LocationPage>();
         builder.Services.AddTransient<CustomerDetailPage>();
         builder.Services.AddTransient<CustomerMapPage>();
-        builder.Services.AddTransient<GalleryPage>();          
+        builder.Services.AddTransient<GalleryPage>();
         builder.Services.AddTransient<UncapturedReadingsByAreaPage>();
         builder.Services.AddTransientWithShellRoute<ExceptionReadingListPage, ReadingViewModel>(
             nameof(ExceptionReadingListPage));
