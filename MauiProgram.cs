@@ -10,7 +10,7 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseSkiaSharp()
             .UseMauiCommunityToolkit()
-            //.UseMauiMaps()
+            .UseMauiMaps()
             //.UseLocalNotification()
             .ConfigureFonts(fonts =>
             {
@@ -80,7 +80,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<AnalyticsPage>();
         builder.Services.AddTransient<ReflushPage>();
         builder.Services.AddTransient<NotesDetailsPage>();
-        builder.Services.AddTransient<CapturedReadingsPage>();
+        builder.Services.AddSingleton<CapturedReadingsPage>();
         builder.Services.AddTransient<LocationPage>();
         builder.Services.AddTransient<CustomerDetailPage>();
         builder.Services.AddTransient<CustomerMapPage>();
